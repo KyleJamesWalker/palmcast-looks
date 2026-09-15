@@ -1,0 +1,20 @@
+/* A punch landing: overshoot, then settle back. The slide being left snaps
+   away sideways as the next one arrives on top of it. */
+@keyframes palmcast-out-townsville-pow {
+  0% { transform: none; }
+  100% { transform: translateX(-16%) rotate(-6deg) scale(.7); opacity: 0; filter: blur(4px); }
+}
+@keyframes palmcast-in-townsville-pow {
+  0% { transform: scale(.2) rotate(9deg); opacity: 0; filter: saturate(3) brightness(1.6); }
+  55% { transform: scale(1.14) rotate(-2.5deg); opacity: 1; filter: saturate(1.8) brightness(1.2); }
+  72% { transform: scale(.96) rotate(1.5deg); }
+  86% { transform: scale(1.03) rotate(-.6deg); }
+  100% { transform: none; filter: none; }
+}
+
+html[data-transition="townsville-pow"] {
+  --transition-out: palmcast-out-townsville-pow;
+  --transition-in: palmcast-in-townsville-pow;
+  --transition-ease: cubic-bezier(.2, .8, .3, 1);
+  --transition-duration: .62s;
+}

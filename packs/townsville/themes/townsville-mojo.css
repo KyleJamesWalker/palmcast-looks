@@ -1,0 +1,85 @@
+/* Lab purple lit from below by Chemical X. The villain's half of the show,
+   with a green readout glow on everything that matters. */
+
+.viewer, .stage {
+  --ground: #120a25;
+  --raised: #221347;
+  --edge: #5b3fa0;
+  --ink: #eee6ff;
+  --ink-dim: #a68fd6;
+  --accent: #56ffb0;
+  --accent-ink: #032018;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    repeating-linear-gradient(0deg, rgb(86 255 176 / .05) 0 1px, rgb(86 255 176 / 0) 1px 4px),
+    radial-gradient(140% 70% at 50% 104%, #b6ffdd 0%, #56ffb0 10%, #23a97e 24%, #4b2a8f 50%, rgb(18 10 37 / 0) 80%),
+    radial-gradient(80% 60% at 8% 0%, rgb(160 86 255 / .3), rgb(18 10 37 / 0) 70%),
+    var(--ground);
+}
+
+/* Chemical X, rising. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: -30% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("data:image/svg+xml,<svg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 400 400'><g transform='translate%2830 60%29 scale%281.6500000000000001%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%23a056ff' fill-opacity='0.45'/></g><g transform='translate%28250 118%29 scale%281.1550000000000002%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%2356ffb0' fill-opacity='0.3'/></g><g transform='translate%28152 300%29 scale%281.9800000000000002%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%23a056ff' fill-opacity='0.45'/></g><g transform='translate%28332 332%29 scale%280.9900000000000001%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%2356ffb0' fill-opacity='0.3'/></g><g transform='translate%28110 182%29 scale%281.32%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%23a056ff' fill-opacity='0.45'/></g><g transform='translate%28300 242%29 scale%280.8800000000000001%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%2356ffb0' fill-opacity='0.3'/></g><g transform='translate%2858 350%29 scale%280.77%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%23a056ff' fill-opacity='0.45'/></g><g transform='translate%28205 42%29 scale%281.1%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%2892 140%29 scale%280.75%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28352 92%29 scale%280.95%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%2820 242%29 scale%280.7%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28248 382%29 scale%280.85%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28172 224%29 scale%280.6%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28378 198%29 scale%280.55%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28128 44%29 scale%280.5%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g></svg>") 0 0 / 46vmin 46vmin repeat;
+  animation: palmcast-townsville-mojo-drift 34s linear infinite;
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(130% 100% at 50% 44%, rgb(18 10 37 / 0) 44%, rgb(8 3 20 / .8) 100%);
+}
+
+@keyframes palmcast-townsville-mojo-drift { to { background-position: -46vmin -92vmin; } }
+@media (prefers-reduced-motion: reduce) {
+  .viewer::before, .stage::before { animation: none; }
+}
+
+.viewer .slide, .stage .slide {
+  font-family: ui-rounded, "SF Pro Rounded", "Chalkboard SE", system-ui, sans-serif;
+}
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-weight: 800;
+  -webkit-text-stroke: .06em #08031a;
+  paint-order: stroke fill;
+}
+.viewer .slide h1, .stage .slide h1 {
+  color: #56ffb0;
+  text-shadow: 0 .06em 0 #08031a, 0 0 .75em rgb(86 255 176 / .55);
+}
+.viewer .slide h2, .stage .slide h2 { color: #c39cff; }
+.viewer .slide h3, .stage .slide h3 { color: #eee6ff; }
+.viewer .slide strong, .stage .slide strong { color: #56ffb0; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+.viewer .slide blockquote, .stage .slide blockquote { border-left: .18em solid var(--accent); color: #c9bce8; }
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(8 3 26 / .8);
+  border-color: rgb(86 255 176 / .4);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .22em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgb(160 86 255 / 0), #a056ff 25%, #56ffb0 75%, rgb(86 255 176 / 0));
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 10px;
+  border: .12em solid #56ffb0;
+  box-shadow: 0 0 40px rgb(86 255 176 / .3);
+}
+.viewer .slide table, .stage .slide table { background: rgb(8 3 26 / .66); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: rgb(86 255 176 / .4); }

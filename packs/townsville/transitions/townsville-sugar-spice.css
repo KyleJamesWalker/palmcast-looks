@@ -1,0 +1,16 @@
+/* Sugar and spice, stirred into each other. The pair turns through the middle
+   with the color running round the wheel. */
+@keyframes palmcast-out-townsville-sugar-spice {
+  to { transform: rotate(38deg) scale(.45); opacity: 0; filter: hue-rotate(160deg) saturate(2.4); }
+}
+@keyframes palmcast-in-townsville-sugar-spice {
+  from { transform: rotate(-38deg) scale(.45); opacity: 0; filter: hue-rotate(-160deg) saturate(2.4); }
+  to { transform: none; opacity: 1; filter: none; }
+}
+
+html[data-transition="townsville-sugar-spice"] {
+  --transition-out: palmcast-out-townsville-sugar-spice;
+  --transition-in: palmcast-in-townsville-sugar-spice;
+  --transition-ease: cubic-bezier(.5, 0, .2, 1);
+  --transition-duration: .68s;
+}

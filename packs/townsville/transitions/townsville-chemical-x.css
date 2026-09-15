@@ -1,0 +1,24 @@
+/* The last slide boils green and dissolves upward. The next one condenses out
+   of the glow. */
+@keyframes palmcast-out-townsville-chemical-x {
+  0% { filter: none; }
+  40% { filter: hue-rotate(90deg) saturate(4) brightness(1.4); }
+  100% {
+    transform: translateY(-14%) scale(1.12);
+    filter: hue-rotate(120deg) saturate(6) brightness(2.2) blur(14px);
+    opacity: 0;
+  }
+}
+@keyframes palmcast-in-townsville-chemical-x {
+  0% { transform: scale(.88); filter: hue-rotate(120deg) saturate(6) brightness(2) blur(12px); opacity: 0; }
+  55% { opacity: 1; }
+  100% { transform: none; filter: none; opacity: 1; }
+}
+
+html[data-transition="townsville-chemical-x"] {
+  --transition-out: palmcast-out-townsville-chemical-x;
+  --transition-in: palmcast-in-townsville-chemical-x;
+  --transition-lift: 1;
+  --transition-drop: 0;
+  --transition-duration: .8s;
+}

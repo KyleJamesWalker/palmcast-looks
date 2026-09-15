@@ -1,0 +1,21 @@
+/* The Mayor is calling, in a hot pink flare. The screen shakes once, and the
+   next slide is already there when it clears. */
+@keyframes palmcast-out-townsville-hotline {
+  0% { filter: none; }
+  45% { filter: sepia(1) hue-rotate(270deg) saturate(9) brightness(1.7); transform: translateX(2%) scale(1.04); }
+  70% { transform: translateX(-2.5%) scale(1.06); }
+  100% { filter: sepia(1) hue-rotate(270deg) saturate(10) brightness(3); opacity: 0; transform: scale(1.08); }
+}
+@keyframes palmcast-in-townsville-hotline {
+  0% { filter: sepia(1) hue-rotate(270deg) saturate(10) brightness(3); opacity: 0; }
+  35% { opacity: 1; }
+  100% { filter: none; opacity: 1; }
+}
+
+html[data-transition="townsville-hotline"] {
+  --transition-out: palmcast-out-townsville-hotline;
+  --transition-in: palmcast-in-townsville-hotline;
+  --transition-lift: 1;
+  --transition-drop: 0;
+  --transition-duration: .55s;
+}

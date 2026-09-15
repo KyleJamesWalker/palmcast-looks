@@ -1,0 +1,16 @@
+/* The camera banks across the city rooftops. The slide being left leans off
+   to one side as the next one arrives from the other. */
+@keyframes palmcast-out-townsville-flyover {
+  to { transform: translateX(-108%) skewX(14deg) scale(.86); opacity: .2; }
+}
+@keyframes palmcast-in-townsville-flyover {
+  from { transform: translateX(108%) skewX(-14deg) scale(.86); opacity: .2; }
+  to { transform: none; opacity: 1; }
+}
+
+html[data-transition="townsville-flyover"] {
+  --transition-out: palmcast-out-townsville-flyover;
+  --transition-in: palmcast-in-townsville-flyover;
+  --transition-ease: cubic-bezier(.62, 0, .3, 1);
+  --transition-duration: .62s;
+}

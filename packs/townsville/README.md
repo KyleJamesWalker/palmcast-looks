@@ -1,6 +1,6 @@
 # townsville
 
-Five themes and six transitions built on The Powerpuff Girls.
+Five themes and six transitions inspired by The Powerpuff Girls.
 
 Every file is plain CSS and carries no artwork. The skyline, hearts, bubbles and
 lightning are inline SVG data URIs. The type is whatever rounded face the reader

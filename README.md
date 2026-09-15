@@ -2,7 +2,7 @@
 
 Themes and transitions for [Palmcast](https://github.com/KyleJamesWalker/Palmcast),
 grouped into packs. One pack ships here today: `townsville`, five themes and six
-transitions built on The Powerpuff Girls.
+transitions inspired by The Powerpuff Girls.
 
 ## Overview
 

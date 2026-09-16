@@ -1,0 +1,118 @@
+/* Orange over violet, with bats crossing the moon. A low moon behind the hill,
+   and the type cut hard enough to read from the back of a dark room. */
+
+.viewer, .stage {
+  --ground: #170a24;
+  --raised: #261239;
+  --edge: #4d2a6e;
+  --ink: #fdeede;
+  --ink-dim: #c8a5cc;
+  --accent: var(--lit-accent, #ff8a1f);
+  --accent-ink: #1a0b12;
+
+  --knob-mood: pumpkin;
+  --knob-mood-options: pumpkin, witch, blood;
+  --knob-drift: 40s;
+  --knob-drift-options: calm 70s, normal 40s, brisk 20s, still 0s;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(22% 16% at 76% 16%,
+      color-mix(in srgb, var(--lit-moon, #ffe6b0) 84%, transparent) 0%, transparent 62%),
+    radial-gradient(130% 76% at 50% 106%,
+      var(--lit-hot, #ffc36a) 0%, var(--lit-accent, #ff8a1f) 11%,
+      var(--lit-mid, #a63b7a) 30%, var(--lit-deep, #3c1354) 56%,
+      rgb(23 10 36 / 0) 82%),
+    var(--ground);
+}
+
+/* Pumpkin is what the file ships and has no block of its own. */
+@container style(--knob-mood: witch) {
+  .viewer, .stage {
+    --lit-accent: #7dff9c; --lit-moon: #d6ffe2;
+    --lit-hot: #cfffd9; --lit-mid: #2f8a5e; --lit-deep: #17324a;
+  }
+}
+@container style(--knob-mood: blood) {
+  .viewer, .stage {
+    --lit-accent: #ff5a4a; --lit-moon: #ffd5cc;
+    --lit-hot: #ffb0a0; --lit-mid: #8a1f2e; --lit-deep: #2c0d20;
+  }
+}
+
+/* Bats, drifting. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: -30% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cg fill='%23120718' fill-opacity='.62'%3E%3Cpath d='M60 70c6-9 12-4 14 1 2-6 8-11 14-2-5-1-9 2-10 6-3-4-5-4-8 0-1-4-5-7-10-5z'/%3E%3Cpath d='M268 132c8-12 16-5 19 1 3-8 11-14 19-2-7-2-12 2-13 8-4-6-7-6-11 0-2-6-7-9-14-7z' transform='scale(.8) translate(60 20)'/%3E%3Cpath d='M150 262c9-14 19-6 22 2 4-9 13-16 22-3-8-2-14 3-15 9-5-7-8-7-13 0-2-6-8-11-16-8z'/%3E%3Cpath d='M330 300c6-9 12-4 14 1 2-6 8-11 14-2-5-1-9 2-10 6-3-4-5-4-8 0-1-4-5-7-10-5z'/%3E%3Cpath d='M92 344c7-11 15-5 18 1 3-7 10-13 18-2-6-2-11 2-12 7-4-5-6-5-10 0-2-5-7-8-14-6z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 50vmin 50vmin repeat;
+  animation: palmcast-seasonal-hallow-drift var(--knob-drift) linear infinite;
+}
+
+/* The hill, and a vignette to keep the corners off the type. */
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 180'%3E%3Cpath d='M0 180 L0 128 Q140 82 300 110 Q440 134 560 96 Q700 52 840 88 Q980 122 1200 74 L1200 180 Z' fill='%23100617'/%3E%3Cg stroke='%23100617' stroke-width='6' fill='none' stroke-linecap='round'%3E%3Cpath d='M180 128 L180 66'/%3E%3Cpath d='M180 92 L150 70 M180 100 L212 74 M180 78 L158 54 M180 82 L204 56'/%3E%3Cpath d='M1010 96 L1010 38'/%3E%3Cpath d='M1010 62 L982 42 M1010 70 L1040 46 M1010 50 L990 28'/%3E%3C/g%3E%3C/svg%3E")
+      bottom center / 100% auto no-repeat,
+    radial-gradient(128% 100% at 50% 44%, rgb(23 10 36 / 0) 44%, rgb(9 3 15 / .8) 100%);
+}
+
+@keyframes palmcast-seasonal-hallow-drift { to { background-position: -100vmin -50vmin; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer::before, .stage::before { animation: none; }
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Bahnschrift", "HelveticaNeue-CondensedBold", "Arial Narrow",
+    ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+.viewer .slide h1, .stage .slide h1 {
+  color: color-mix(in srgb, var(--lit-accent, #ff8a1f) 32%, #ffffff);
+  text-shadow: 0 .05em 0 #120718, 0 0 .7em color-mix(in srgb, var(--lit-accent, #ff8a1f) 46%, transparent);
+}
+.viewer .slide h2, .stage .slide h2 { color: var(--lit-accent, #ff8a1f); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide, .stage .slide { text-shadow: 0 1px 3px rgb(9 3 15 / .85); }
+.viewer .slide strong, .stage .slide strong { color: var(--lit-accent, #ff8a1f); }
+.viewer .slide em, .stage .slide em { color: #d9b6e4; font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: #e8cfe8;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(14 6 22 / .84);
+  border-color: rgb(77 42 110 / .9);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .18em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--lit-deep, #3c1354), var(--lit-accent, #ff8a1f));
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 6px;
+  border: .1em solid var(--edge);
+  box-shadow: 0 12px 38px rgb(0 0 0 / .6);
+}
+.viewer .slide table, .stage .slide table { background: rgb(23 10 36 / .72); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: rgb(77 42 110 / .9); }

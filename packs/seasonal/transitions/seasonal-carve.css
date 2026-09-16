@@ -1,0 +1,21 @@
+/* Cut out of the middle, the way a lantern is. The next slide opens through a
+   jagged hole and fills the frame. */
+@keyframes palmcast-in-seasonal-carve {
+  from {
+    clip-path: polygon(50% 48%, 52% 50%, 50% 52%, 48% 50%,
+                       50% 48%, 52% 50%, 50% 52%, 48% 50%,
+                       50% 48%, 52% 50%, 50% 52%, 48% 50%);
+  }
+  to {
+    clip-path: polygon(50% -30%, 74% 6%, 118% -6%, 106% 34%, 140% 50%,
+                       106% 66%, 118% 106%, 74% 94%, 50% 130%,
+                       26% 94%, -18% 106%, -6% 66%);
+  }
+}
+
+html[data-transition="seasonal-carve"] {
+  --transition-out: palmcast-hold;
+  --transition-in: palmcast-in-seasonal-carve;
+  --transition-ease: cubic-bezier(.3, .9, .35, 1);
+  --transition-duration: .78s;
+}

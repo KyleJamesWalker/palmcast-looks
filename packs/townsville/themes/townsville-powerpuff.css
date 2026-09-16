@@ -11,6 +11,11 @@
   --accent: #ff4fa3;
   --accent-ink: #2b0018;
 
+  --knob-mood: sunset;
+  --knob-mood-options: sunset, dawn, midnight;
+  --knob-drift: 34s;
+  --knob-drift-options: calm 60s, normal 34s, brisk 18s, still 0s;
+
   --pp-blossom: #ff4fa3;
   --pp-bubbles: #6fd8ff;
   --pp-buttercup: #9dff8c;
@@ -24,15 +29,33 @@
 
   background:
     repeating-conic-gradient(from 0deg at 50% 120%,
-      rgb(255 158 210 / .17) 0deg 5deg, rgb(255 158 210 / 0) 5deg 11deg),
+      color-mix(in srgb, var(--lit-spark, #ff9ed2) 17%, transparent) 0deg 5deg,
+      transparent 5deg 11deg),
     radial-gradient(145% 72% at 50% 104%,
-      #ffe08a 0%, #ff9b3d 11%, #ff4fa3 28%, #a42d96 52%, rgb(33 9 58 / 0) 78%),
+      var(--lit-hot, #ffe08a) 0%, var(--lit-warm, #ff9b3d) 11%,
+      var(--lit-mid, #ff4fa3) 28%, var(--lit-deep, #a42d96) 52%,
+      rgb(33 9 58 / 0) 78%),
     radial-gradient(70% 55% at 12% -8%, rgb(111 216 255 / .22), rgb(33 9 58 / 0) 70%),
     radial-gradient(60% 50% at 92% -4%, rgb(157 255 140 / .16), rgb(33 9 58 / 0) 70%),
     var(--ground);
 }
 
 /* Hearts and sparkles, drifting up. */
+/* The hour over Townsville. The girls keep their own colours whatever the sky
+   does; sunset is what the file ships and so has no block of its own. */
+@container style(--knob-mood: dawn) {
+  .viewer, .stage {
+    --lit-spark: #ffc2d6;
+    --lit-hot: #fff0d0; --lit-warm: #ffc178; --lit-mid: #ff7fa3; --lit-deep: #6a4bbd;
+  }
+}
+@container style(--knob-mood: midnight) {
+  .viewer, .stage {
+    --lit-spark: #9db4ff;
+    --lit-hot: #cfe0ff; --lit-warm: #6f8ce0; --lit-mid: #7a3fd0; --lit-deep: #241055;
+  }
+}
+
 .viewer::before, .stage::before {
   content: "";
   position: absolute;
@@ -40,7 +63,7 @@
   z-index: -1;
   pointer-events: none;
   background: url("data:image/svg+xml,<svg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 400 400'><g transform='translate%2830 60%29 scale%281.5%29'><path d='M16 29S1 19.4 1 9.9C1 4.9 5 1.2 9.6 1.2c3 0 5.3 1.8 6.4 3.7 1.1-1.9 3.4-3.7 6.4-3.7C27 1.2 31 4.9 31 9.9 31 19.4 16 29 16 29z' fill='%23ff8ac4' fill-opacity='0.55'/></g><g transform='translate%28250 118%29 scale%281.05%29'><path d='M16 29S1 19.4 1 9.9C1 4.9 5 1.2 9.6 1.2c3 0 5.3 1.8 6.4 3.7 1.1-1.9 3.4-3.7 6.4-3.7C27 1.2 31 4.9 31 9.9 31 19.4 16 29 16 29z' fill='%236fd8ff' fill-opacity='0.42'/></g><g transform='translate%28152 300%29 scale%281.8%29'><path d='M16 29S1 19.4 1 9.9C1 4.9 5 1.2 9.6 1.2c3 0 5.3 1.8 6.4 3.7 1.1-1.9 3.4-3.7 6.4-3.7C27 1.2 31 4.9 31 9.9 31 19.4 16 29 16 29z' fill='%23ff8ac4' fill-opacity='0.55'/></g><g transform='translate%28332 332%29 scale%280.9%29'><path d='M16 29S1 19.4 1 9.9C1 4.9 5 1.2 9.6 1.2c3 0 5.3 1.8 6.4 3.7 1.1-1.9 3.4-3.7 6.4-3.7C27 1.2 31 4.9 31 9.9 31 19.4 16 29 16 29z' fill='%236fd8ff' fill-opacity='0.42'/></g><g transform='translate%28110 182%29 scale%281.2%29'><path d='M16 29S1 19.4 1 9.9C1 4.9 5 1.2 9.6 1.2c3 0 5.3 1.8 6.4 3.7 1.1-1.9 3.4-3.7 6.4-3.7C27 1.2 31 4.9 31 9.9 31 19.4 16 29 16 29z' fill='%23ff8ac4' fill-opacity='0.55'/></g><g transform='translate%28300 242%29 scale%280.8%29'><path d='M16 29S1 19.4 1 9.9C1 4.9 5 1.2 9.6 1.2c3 0 5.3 1.8 6.4 3.7 1.1-1.9 3.4-3.7 6.4-3.7C27 1.2 31 4.9 31 9.9 31 19.4 16 29 16 29z' fill='%236fd8ff' fill-opacity='0.42'/></g><g transform='translate%2858 350%29 scale%280.7%29'><path d='M16 29S1 19.4 1 9.9C1 4.9 5 1.2 9.6 1.2c3 0 5.3 1.8 6.4 3.7 1.1-1.9 3.4-3.7 6.4-3.7C27 1.2 31 4.9 31 9.9 31 19.4 16 29 16 29z' fill='%23ff8ac4' fill-opacity='0.55'/></g><g transform='translate%28205 42%29 scale%281.1%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23fff0b3' fill-opacity='0.6'/></g><g transform='translate%2892 140%29 scale%280.75%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23fff0b3' fill-opacity='0.6'/></g><g transform='translate%28352 92%29 scale%280.95%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23fff0b3' fill-opacity='0.6'/></g><g transform='translate%2820 242%29 scale%280.7%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23fff0b3' fill-opacity='0.6'/></g><g transform='translate%28248 382%29 scale%280.85%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23fff0b3' fill-opacity='0.6'/></g><g transform='translate%28172 224%29 scale%280.6%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23fff0b3' fill-opacity='0.6'/></g><g transform='translate%28378 198%29 scale%280.55%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23fff0b3' fill-opacity='0.6'/></g><g transform='translate%28128 44%29 scale%280.5%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23fff0b3' fill-opacity='0.6'/></g></svg>") 0 0 / 46vmin 46vmin repeat;
-  animation: palmcast-townsville-powerpuff-drift 34s linear infinite;
+  animation: palmcast-townsville-powerpuff-drift var(--knob-drift) linear infinite;
 }
 
 /* Townsville, and a vignette to keep the corners off the type. */

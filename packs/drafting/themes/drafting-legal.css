@@ -1,0 +1,93 @@
+/* A yellow pad, blue rules and a red margin line. Written in the blue-black
+   ink everybody's pen ran out of halfway down the page. */
+
+.viewer, .stage {
+  --ground: #fcf5cc;
+  --raised: #fffdf0;
+  --edge: #d6ca8a;
+  --ink: #1e2d4f;
+  --ink-dim: #4d5a75;
+  --accent: #b03028;
+  --accent-ink: #fffdf0;
+
+  --code-keyword: #8a2f78;
+  --code-string: #145e3a;
+  --code-comment: #6b6a52;
+  --code-number: #8a4a00;
+  --code-function: #1e4f8a;
+  --code-type: #74510a;
+  --code-variable: #1e2d4f;
+
+  color-scheme: light;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    repeating-linear-gradient(0deg,
+      transparent 0 calc(3.4vmin - 1px), rgb(84 132 186 / .42) calc(3.4vmin - 1px) 3.4vmin),
+    var(--ground);
+}
+
+/* The margin, and the punch holes above it. */
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      transparent 0 5.4vmin, rgb(176 48 40 / .5) 5.4vmin calc(5.4vmin + 2px), transparent calc(5.4vmin + 2px)),
+    radial-gradient(circle at 2.6vmin 22%, rgb(120 106 58 / .22) 0 1.1vmin, transparent 1.2vmin),
+    radial-gradient(circle at 2.6vmin 50%, rgb(120 106 58 / .22) 0 1.1vmin, transparent 1.2vmin),
+    radial-gradient(circle at 2.6vmin 78%, rgb(120 106 58 / .22) 0 1.1vmin, transparent 1.2vmin),
+    radial-gradient(130% 100% at 50% 50%, transparent 64%, rgb(120 106 58 / .14) 100%);
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Iowan Old Style", Palatino, Georgia, ui-serif, serif;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.viewer .slide h1, .stage .slide h1 {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: .12em;
+}
+.viewer .slide h2, .stage .slide h2 { color: var(--accent); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink-dim); }
+
+.viewer .slide, .stage .slide {
+  font-family: "Iowan Old Style", Palatino, Georgia, ui-serif, serif;
+}
+.viewer .slide strong, .stage .slide strong { color: var(--accent); }
+.viewer .slide em, .stage .slide em { font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: #3f4a64;
+  font-style: italic;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  background: rgb(255 253 240 / .92);
+  border-color: var(--edge);
+  color: var(--code-variable);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: 2px;
+  background: var(--accent);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 2px;
+  border: 1px solid var(--edge);
+  box-shadow: 0 3px 12px rgb(84 74 34 / .16);
+}
+.viewer .slide table, .stage .slide table { background: rgb(255 253 240 / .9); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--edge); }

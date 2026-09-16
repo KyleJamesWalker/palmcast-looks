@@ -1,0 +1,116 @@
+/* Acid green and violet, with cards drifting past. One rogue per mood, and the
+   grin stays off the slide so the type keeps the room. */
+
+.viewer, .stage {
+  --ground: #140a1e;
+  --raised: #21123a;
+  --edge: #4a2a6e;
+  --ink: #f3ecff;
+  --ink-dim: #b49ad2;
+  --accent: var(--lit-accent, #8dff4e);
+  --accent-ink: #0c0614;
+
+  --knob-rogue: joker;
+  --knob-rogue-options: joker, riddler, ivy;
+  --knob-drift: 30s;
+  --knob-drift-options: calm 60s, normal 30s, brisk 16s, still 0s;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    repeating-conic-gradient(from 0deg at 50% 116%,
+      color-mix(in srgb, var(--lit-accent, #8dff4e) 9%, transparent) 0deg 4deg,
+      transparent 4deg 11deg),
+    radial-gradient(140% 74% at 50% 104%,
+      var(--lit-hot, #d9ff9c) 0%, var(--lit-warm, #8dff4e) 10%,
+      var(--lit-mid, #2f9a42) 26%, var(--lit-deep, #46187a) 52%,
+      rgb(20 10 30 / 0) 80%),
+    var(--ground);
+}
+
+/* Joker is what the file ships and has no block of its own. */
+@container style(--knob-rogue: riddler) {
+  .viewer, .stage {
+    --lit-accent: #35e07a;
+    --lit-hot: #ccffe0; --lit-warm: #35e07a; --lit-mid: #147a4a; --lit-deep: #2a1466;
+    --lit-ink: #b9ffd8;
+  }
+}
+@container style(--knob-rogue: ivy) {
+  .viewer, .stage {
+    --lit-accent: #7fdc4a;
+    --lit-hot: #f1ffcf; --lit-warm: #b7e84e; --lit-mid: #2f7a24; --lit-deep: #123a1c;
+    --lit-ink: #dcffb5;
+  }
+}
+
+/* Cards, drifting. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: -30% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cg fill='%23ffffff' fill-opacity='.14'%3E%3Cpath d='M60 30l18 26-18 26-18-26z'/%3E%3Cpath d='M300 96l14 20-14 20-14-20z'/%3E%3Cpath d='M170 210l22 32-22 32-22-32z'/%3E%3Cpath d='M352 300l16 23-16 23-16-23z'/%3E%3Cpath d='M92 330l13 19-13 19-13-19z'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.12' stroke-width='3'%3E%3Crect x='210' y='24' width='40' height='56' rx='5' transform='rotate(14 230 52)'/%3E%3Crect x='24' y='146' width='34' height='48' rx='4' transform='rotate(-19 41 170)'/%3E%3Crect x='268' y='348' width='36' height='50' rx='4' transform='rotate(8 286 373)'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 44vmin 44vmin repeat;
+  animation: palmcast-gotham-joker-drift var(--knob-drift) linear infinite;
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(128% 100% at 50% 44%, rgb(20 10 30 / 0) 44%, rgb(9 4 15 / .8) 100%);
+}
+
+@keyframes palmcast-gotham-joker-drift { to { background-position: -44vmin -88vmin; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer::before, .stage::before { animation: none; }
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Bahnschrift", "HelveticaNeue-CondensedBold", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.viewer .slide h1, .stage .slide h1 {
+  color: var(--lit-ink, #c9ff9a);
+  text-shadow: 0 .05em 0 #170a24, 0 0 .7em color-mix(in srgb, var(--lit-accent, #8dff4e) 45%, transparent);
+}
+.viewer .slide h2, .stage .slide h2 { color: #c79bff; }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide, .stage .slide { text-shadow: 0 1px 3px rgb(9 4 15 / .85); }
+.viewer .slide strong, .stage .slide strong { color: var(--lit-ink, #c9ff9a); }
+.viewer .slide em, .stage .slide em { color: #c79bff; font-style: normal; font-weight: 700; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .18em solid var(--accent);
+  color: #d6c4ee;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(13 6 22 / .82);
+  border-color: rgb(74 42 110 / .9);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .2em;
+  background: repeating-linear-gradient(90deg,
+    var(--accent) 0 16px, #7b3fc4 16px 32px);
+  border-radius: 999px;
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 10px;
+  border: .12em solid var(--accent);
+  box-shadow: 0 0 0 .05em #170a24, 0 10px 38px rgb(141 255 78 / .22);
+}
+.viewer .slide table, .stage .slide table { background: rgb(20 10 30 / .7); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: rgb(74 42 110 / .9); }

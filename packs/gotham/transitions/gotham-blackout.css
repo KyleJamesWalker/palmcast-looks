@@ -1,0 +1,20 @@
+/* The lights go out, one beat, and the next is there. Nothing crosses in the
+   dark, which is the point of it. */
+@keyframes palmcast-out-gotham-blackout {
+  0% { opacity: 1; filter: none; }
+  34% { opacity: 0; filter: brightness(0); }
+  100% { opacity: 0; filter: brightness(0); }
+}
+@keyframes palmcast-in-gotham-blackout {
+  0%, 56% { opacity: 0; filter: brightness(0); }
+  100% { opacity: 1; filter: none; }
+}
+
+html[data-transition="gotham-blackout"] {
+  --transition-out: palmcast-out-gotham-blackout;
+  --transition-in: palmcast-in-gotham-blackout;
+  --transition-ease: linear;
+  --transition-duration: .62s;
+  --transition-lift: 1;
+  --transition-drop: 0;
+}

@@ -1,0 +1,20 @@
+/* Thrown from the corner: it spins in and lands flat. The slide being left is
+   cut away underneath it. */
+@keyframes palmcast-out-gotham-batarang {
+  to { transform: scale(.94); opacity: 0; filter: brightness(.4); }
+}
+@keyframes palmcast-in-gotham-batarang {
+  from {
+    transform: translate(78%, -78%) rotate(-540deg) scale(.12);
+    opacity: 0;
+  }
+  70% { opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+
+html[data-transition="gotham-batarang"] {
+  --transition-out: palmcast-out-gotham-batarang;
+  --transition-in: palmcast-in-gotham-batarang;
+  --transition-ease: cubic-bezier(.3, .85, .25, 1);
+  --transition-duration: .68s;
+}

@@ -1,0 +1,16 @@
+/* The line goes taut and the slide is gone upward. What was behind it was
+   already there, waiting. */
+@keyframes palmcast-out-gotham-grapple {
+  0% { transform: none; }
+  22% { transform: translateY(4%) scale(.99); }
+  100% { transform: translateY(-118%) scale(.86); opacity: .1; }
+}
+
+html[data-transition="gotham-grapple"] {
+  --transition-out: palmcast-out-gotham-grapple;
+  --transition-in: palmcast-hold;
+  --transition-ease: cubic-bezier(.7, 0, .3, 1);
+  --transition-duration: .58s;
+  --transition-lift: 1;
+  --transition-drop: 0;
+}

@@ -1,0 +1,108 @@
+/* Newsprint and halftone, for a room with the lights on. Black slab headings, a
+   masthead rule in red, and nothing on the page that moves. */
+
+.viewer, .stage {
+  --ground: var(--lit-stock, #ece7dd);
+  --raised: var(--lit-raised, #f6f2ea);
+  --edge: var(--lit-edge, #c2b9a7);
+  --ink: var(--lit-ink, #16140f);
+  --ink-dim: var(--lit-dim, #574f43);
+  --accent: var(--lit-accent, #a8231b);
+  --accent-ink: #fffaf3;
+
+  --knob-stock: newsprint;
+  --knob-stock-options: newsprint, bright, aged;
+
+  --code-keyword: #8a2b8a;
+  --code-string: #2c6630;
+  --code-comment: #6f6759;
+  --code-number: #8a5510;
+  --code-function: #1f4a89;
+  --code-type: #7d5f0d;
+  --code-variable: #2a251c;
+
+  color-scheme: light;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(circle at 50% 50%, rgb(22 20 15 / .09) 0 1.1px, transparent 1.4px)
+      0 0 / 5px 5px,
+    linear-gradient(180deg, rgb(255 255 255 / .5) 0%, transparent 38%),
+    var(--ground);
+}
+
+/* Newsprint is what the file ships and has no block of its own. */
+@container style(--knob-stock: bright) {
+  .viewer, .stage {
+    --lit-stock: #f8f6f2; --lit-raised: #ffffff; --lit-edge: #d3cec4;
+    --lit-ink: #111111; --lit-dim: #4f4d49; --lit-accent: #b81d14;
+  }
+}
+@container style(--knob-stock: aged) {
+  .viewer, .stage {
+    --lit-stock: #e0d3b8; --lit-raised: #ece1cb; --lit-edge: #b2a184;
+    --lit-ink: #241d12; --lit-dim: #5e5238; --lit-accent: #8c2a10;
+  }
+}
+
+/* A fold down the middle, and the edges going brown. */
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 49.6%, rgb(90 74 46 / .1) 50%, transparent 50.4%),
+    radial-gradient(130% 100% at 50% 50%, transparent 56%, rgb(122 96 54 / .17) 100%);
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Bahnschrift", "HelveticaNeue-CondensedBlack", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: -.015em;
+  color: var(--ink);
+}
+.viewer .slide h1, .stage .slide h1 {
+  text-transform: uppercase;
+  border-bottom: .09em solid var(--ink);
+  padding-bottom: .12em;
+}
+.viewer .slide h2, .stage .slide h2 { color: var(--accent); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink-dim); text-transform: uppercase; letter-spacing: .08em; }
+
+.viewer .slide, .stage .slide {
+  font-family: "Iowan Old Style", "Palatino", Georgia, ui-serif, serif;
+}
+.viewer .slide strong, .stage .slide strong { color: var(--accent); }
+.viewer .slide em, .stage .slide em { font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: #453d31;
+  font-style: italic;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  background: rgb(255 255 255 / .62);
+  border-color: var(--edge);
+  color: var(--code-variable);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .18em;
+  background: linear-gradient(180deg, var(--ink) 0 40%, transparent 40% 60%, var(--ink) 60%);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 0;
+  border: .08em solid var(--ink);
+  filter: grayscale(1) contrast(1.12);
+  box-shadow: none;
+}
+.viewer .slide table, .stage .slide table { background: rgb(255 255 255 / .5); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--edge); }

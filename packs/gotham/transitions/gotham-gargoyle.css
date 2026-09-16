@@ -1,0 +1,16 @@
+/* A step off the ledge, and the next rises to meet it. The camera drops with
+   the slide rather than watching it go. */
+@keyframes palmcast-out-gotham-gargoyle {
+  to { transform: perspective(1400px) translateY(-44%) rotateX(26deg) scale(.7); opacity: 0; }
+}
+@keyframes palmcast-in-gotham-gargoyle {
+  from { transform: perspective(1400px) translateY(64%) rotateX(-22deg) scale(.78); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+html[data-transition="gotham-gargoyle"] {
+  --transition-out: palmcast-out-gotham-gargoyle;
+  --transition-in: palmcast-in-gotham-gargoyle;
+  --transition-ease: cubic-bezier(.5, 0, .2, 1);
+  --transition-duration: .72s;
+}

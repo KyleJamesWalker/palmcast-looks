@@ -1,0 +1,105 @@
+/* Catppuccin, all four flavours in one file. Quiet enough that the code block
+   is the brightest thing on the slide, which is the point of this pack. */
+
+.viewer, .stage {
+  --ground: var(--lit-base, #1e1e2e);
+  --raised: var(--lit-surface, #313244);
+  --edge: var(--lit-overlay, #6c7086);
+  --ink: var(--lit-text, #cdd6f4);
+  --ink-dim: var(--lit-subtext, #a6adc8);
+  --accent: var(--lit-mauve, #cba6f7);
+  --accent-ink: var(--lit-mantle, #181825);
+
+  --knob-flavor: mocha;
+  --knob-flavor-options: mocha, macchiato, frappe, latte;
+
+  --code-keyword: var(--lit-mauve, #cba6f7);
+  --code-string: var(--lit-green, #a6e3a1);
+  --code-comment: var(--lit-overlay, #6c7086);
+  --code-number: var(--lit-peach, #fab387);
+  --code-function: var(--lit-blue, #89b4fa);
+  --code-type: var(--lit-yellow, #f9e2af);
+  --code-variable: var(--lit-text, #cdd6f4);
+
+  color-scheme: var(--lit-scheme, dark);
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(64% 44% at 84% 6%,
+      color-mix(in srgb, var(--lit-mauve, #cba6f7) 13%, transparent) 0%, transparent 70%),
+    radial-gradient(56% 40% at 10% 96%,
+      color-mix(in srgb, var(--lit-blue, #89b4fa) 11%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, var(--lit-mantle, #181825) 0%, rgb(0 0 0 / 0) 42%),
+    var(--ground);
+}
+
+/* Mocha is what the file ships, so it has no block and a browser without style
+   queries still gets it. Latte is the light one and says so. */
+@container style(--knob-flavor: macchiato) {
+  .viewer, .stage {
+    --lit-base: #24273a; --lit-mantle: #1e2030; --lit-surface: #363a4f;
+    --lit-overlay: #6e738d; --lit-text: #cad3f5; --lit-subtext: #a5adcb;
+    --lit-mauve: #c6a0f6; --lit-green: #a6da95; --lit-peach: #f5a97f;
+    --lit-blue: #8aadf4; --lit-yellow: #eed49f;
+  }
+}
+@container style(--knob-flavor: frappe) {
+  .viewer, .stage {
+    --lit-base: #303446; --lit-mantle: #292c3c; --lit-surface: #414559;
+    --lit-overlay: #737994; --lit-text: #c6d0f5; --lit-subtext: #a5adce;
+    --lit-mauve: #ca9ee6; --lit-green: #a6d189; --lit-peach: #ef9f76;
+    --lit-blue: #8caaee; --lit-yellow: #e5c890;
+  }
+}
+@container style(--knob-flavor: latte) {
+  .viewer, .stage {
+    --lit-scheme: light;
+    --lit-base: #eff1f5; --lit-mantle: #e6e9ef; --lit-surface: #ccd0da;
+    --lit-overlay: #7c7f93; --lit-text: #4c4f69; --lit-subtext: #5c5f77;
+    --lit-mauve: #8839ef; --lit-green: #2f7620; --lit-peach: #a74c09;
+    --lit-blue: #1c5ee1; --lit-yellow: #8f5d10;
+  }
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-sans-serif, Inter, "Helvetica Neue", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -.012em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--lit-mauve, #cba6f7); }
+.viewer .slide h2, .stage .slide h2 { color: var(--lit-blue, #89b4fa); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide strong, .stage .slide strong { color: var(--lit-peach, #fab387); }
+.viewer .slide em, .stage .slide em { color: var(--lit-green, #a6e3a1); font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: var(--ink-dim);
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: color-mix(in srgb, var(--lit-mantle, #181825) 88%, transparent);
+  border-color: var(--lit-surface, #313244);
+  color: var(--code-variable);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .12em;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    var(--lit-mauve, #cba6f7), var(--lit-blue, #89b4fa), var(--lit-green, #a6e3a1));
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 10px;
+  border: 1px solid var(--lit-surface, #313244);
+  box-shadow: 0 10px 32px rgb(0 0 0 / .35);
+}
+.viewer .slide table, .stage .slide table {
+  background: color-mix(in srgb, var(--lit-mantle, #181825) 70%, transparent);
+}
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--lit-surface, #313244); }

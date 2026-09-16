@@ -1,0 +1,88 @@
+/* Gruvbox, warm and retro, in both its grounds. One knob picks the ground and
+   takes the whole palette with it, syntax colours included. */
+
+.viewer, .stage {
+  --ground: var(--lit-bg, #282828);
+  --raised: var(--lit-bg1, #3c3836);
+  --edge: var(--lit-bg2, #504945);
+  --ink: var(--lit-fg, #ebdbb2);
+  --ink-dim: var(--lit-gray, #a89984);
+  --accent: var(--lit-yellow, #fabd2f);
+  --accent-ink: var(--lit-bg, #282828);
+
+  --knob-mode: dark;
+  --knob-mode-options: dark, light;
+
+  --code-keyword: var(--lit-red, #fc7c6d);
+  --code-string: var(--lit-green, #b8bb26);
+  --code-comment: var(--lit-gray, #a89984);
+  --code-number: var(--lit-purple, #d68da1);
+  --code-function: var(--lit-aqua, #8ec07c);
+  --code-type: var(--lit-yellow, #fabd2f);
+  --code-variable: var(--lit-fg, #ebdbb2);
+
+  color-scheme: var(--lit-scheme, dark);
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(64% 44% at 86% 4%,
+      color-mix(in srgb, var(--lit-orange, #fe8019) 12%, transparent) 0%, transparent 70%),
+    radial-gradient(52% 38% at 8% 98%,
+      color-mix(in srgb, var(--lit-aqua, #8ec07c) 10%, transparent) 0%, transparent 70%),
+    var(--ground);
+}
+
+/* Dark is what the file ships and has no block of its own. Light is the whole
+   palette again, not a filter over the first one. */
+@container style(--knob-mode: light) {
+  .viewer, .stage {
+    --lit-scheme: light;
+    --lit-bg: #fbf1c7; --lit-bg1: #ebdbb2; --lit-bg2: #d5c4a1;
+    --lit-fg: #3c3836; --lit-gray: #6f6552;
+    --lit-red: #9d0006; --lit-green: #67630c; --lit-yellow: #84560f;
+    --lit-purple: #8f3f71; --lit-aqua: #396a4c; --lit-orange: #af3a03;
+  }
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-sans-serif, Inter, "Helvetica Neue", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--lit-orange, #fe8019); }
+.viewer .slide h2, .stage .slide h2 { color: var(--lit-aqua, #8ec07c); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide strong, .stage .slide strong { color: var(--lit-yellow, #fabd2f); }
+.viewer .slide em, .stage .slide em { color: var(--lit-green, #b8bb26); font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: var(--ink-dim);
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: color-mix(in srgb, var(--lit-bg1, #3c3836) 88%, transparent);
+  border-color: var(--lit-bg2, #504945);
+  color: var(--code-variable);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .12em;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    var(--lit-red, #fc7c6d), var(--lit-yellow, #fabd2f), var(--lit-aqua, #8ec07c));
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 6px;
+  border: 1px solid var(--lit-bg2, #504945);
+  box-shadow: 0 8px 26px rgb(0 0 0 / .32);
+}
+.viewer .slide table, .stage .slide table {
+  background: color-mix(in srgb, var(--lit-bg1, #3c3836) 70%, transparent);
+}
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--lit-bg2, #504945); }

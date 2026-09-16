@@ -1,0 +1,72 @@
+/* The Dracula palette, on this side of the screen. Quiet ground, six brights,
+   and the code block mapped to the same names the editor uses. */
+
+.viewer, .stage {
+  --ground: #282a36;
+  --raised: #343746;
+  --edge: #44475a;
+  --ink: #f8f8f2;
+  --ink-dim: #a3a7c0;
+  --accent: var(--knob-accent);
+  --accent-ink: #21222c;
+
+  --knob-accent: #ff79c6;
+  --knob-accent-options: pink #ff79c6, purple #bd93f9, cyan #8be9fd, green #50fa7b;
+
+  --code-keyword: #ff79c6;
+  --code-string: #f1fa8c;
+  --code-comment: #7686b8;
+  --code-number: #bd93f9;
+  --code-function: #50fa7b;
+  --code-type: #8be9fd;
+  --code-variable: #f8f8f2;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(62% 44% at 86% 6%,
+      color-mix(in srgb, var(--knob-accent) 14%, transparent) 0%, transparent 70%),
+    radial-gradient(54% 40% at 8% 96%, rgb(189 147 249 / .12) 0%, transparent 70%),
+    linear-gradient(180deg, #21222c 0%, rgb(0 0 0 / 0) 40%),
+    var(--ground);
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-sans-serif, Inter, "Helvetica Neue", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -.012em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--knob-accent); }
+.viewer .slide h2, .stage .slide h2 { color: #8be9fd; }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide strong, .stage .slide strong { color: #ffb86c; }
+.viewer .slide em, .stage .slide em { color: #50fa7b; font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: #c4c8dd;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(33 34 44 / .9);
+  border-color: #44475a;
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .12em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff79c6, #bd93f9, #8be9fd);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 10px;
+  border: 1px solid #44475a;
+  box-shadow: 0 10px 32px rgb(0 0 0 / .45);
+}
+.viewer .slide table, .stage .slide table { background: rgb(33 34 44 / .72); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: #44475a; }

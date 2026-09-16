@@ -7,8 +7,13 @@
   --edge: #2f6b35;
   --ink: #eafff0;
   --ink-dim: #8fc39a;
-  --accent: #6dff5c;
+  --accent: var(--lit-accent, #6dff5c);
   --accent-ink: #04170a;
+
+  --knob-mood: lime;
+  --knob-mood-options: lime, toxic, storm;
+  --knob-drift: 34s;
+  --knob-drift-options: calm 60s, normal 34s, brisk 18s, still 0s;
 
   color-scheme: dark;
   color: var(--ink);
@@ -18,14 +23,33 @@
 
   background:
     repeating-linear-gradient(115deg,
-      rgb(109 255 92 / .07) 0 12px, rgb(109 255 92 / 0) 12px 34px),
+      color-mix(in srgb, var(--lit-accent, #6dff5c) 7%, transparent) 0 12px,
+      transparent 12px 34px),
     repeating-conic-gradient(from 0deg at 50% 118%,
-      rgb(109 255 92 / .1) 0deg 4deg, rgb(109 255 92 / 0) 4deg 12deg),
-    radial-gradient(140% 72% at 50% 104%, #e8ff9c 0%, #b6ff4d 11%, #34a83a 28%, #0d3a18 54%, rgb(7 20 9 / 0) 80%),
+      color-mix(in srgb, var(--lit-accent, #6dff5c) 10%, transparent) 0deg 4deg,
+      transparent 4deg 12deg),
+    radial-gradient(140% 72% at 50% 104%,
+      var(--lit-hot, #e8ff9c) 0%, var(--lit-warm, #b6ff4d) 11%,
+      var(--lit-mid, #34a83a) 28%, var(--lit-deep, #0d3a18) 54%,
+      rgb(7 20 9 / 0) 80%),
     var(--ground);
 }
 
 /* Lightning, because she never floats anywhere. */
+/* One charge running through the stripes, and lime is what the file ships. */
+@container style(--knob-mood: toxic) {
+  .viewer, .stage {
+    --lit-hot: #f7ffb0; --lit-warm: #d7ff2e; --lit-mid: #5ec91f; --lit-deep: #17400a;
+    --lit-heading: #d7ff2e; --lit-accent: #9dff22;
+  }
+}
+@container style(--knob-mood: storm) {
+  .viewer, .stage {
+    --lit-hot: #cfe8c4; --lit-warm: #8ab77a; --lit-mid: #2c5c34; --lit-deep: #08220f;
+    --lit-heading: #9ee08c; --lit-accent: #7fd46f;
+  }
+}
+
 .viewer::before, .stage::before {
   content: "";
   position: absolute;
@@ -33,7 +57,7 @@
   z-index: -1;
   pointer-events: none;
   background: url("data:image/svg+xml,<svg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 400 400'><g transform='translate%2830 60%29 scale%281.5%29'><path d='M14 0 3 20h7L8 36l13-21h-8z' fill='%23b6ff4d' fill-opacity='0.42'/></g><g transform='translate%28250 118%29 scale%281.05%29'><path d='M14 0 3 20h7L8 36l13-21h-8z' fill='%236dff5c' fill-opacity='0.3'/></g><g transform='translate%28152 300%29 scale%281.8%29'><path d='M14 0 3 20h7L8 36l13-21h-8z' fill='%23b6ff4d' fill-opacity='0.42'/></g><g transform='translate%28332 332%29 scale%280.9%29'><path d='M14 0 3 20h7L8 36l13-21h-8z' fill='%236dff5c' fill-opacity='0.3'/></g><g transform='translate%28110 182%29 scale%281.2%29'><path d='M14 0 3 20h7L8 36l13-21h-8z' fill='%23b6ff4d' fill-opacity='0.42'/></g><g transform='translate%28300 242%29 scale%280.8%29'><path d='M14 0 3 20h7L8 36l13-21h-8z' fill='%236dff5c' fill-opacity='0.3'/></g><g transform='translate%2858 350%29 scale%280.7%29'><path d='M14 0 3 20h7L8 36l13-21h-8z' fill='%23b6ff4d' fill-opacity='0.42'/></g><g transform='translate%28205 42%29 scale%281.1%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23eafff0' fill-opacity='0.3'/></g><g transform='translate%2892 140%29 scale%280.75%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23eafff0' fill-opacity='0.3'/></g><g transform='translate%28352 92%29 scale%280.95%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23eafff0' fill-opacity='0.3'/></g><g transform='translate%2820 242%29 scale%280.7%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23eafff0' fill-opacity='0.3'/></g><g transform='translate%28248 382%29 scale%280.85%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23eafff0' fill-opacity='0.3'/></g><g transform='translate%28172 224%29 scale%280.6%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23eafff0' fill-opacity='0.3'/></g><g transform='translate%28378 198%29 scale%280.55%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23eafff0' fill-opacity='0.3'/></g><g transform='translate%28128 44%29 scale%280.5%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%23eafff0' fill-opacity='0.3'/></g></svg>") 0 0 / 46vmin 46vmin repeat;
-  animation: palmcast-townsville-buttercup-drift 34s linear infinite;
+  animation: palmcast-townsville-buttercup-drift var(--knob-drift) linear infinite;
 }
 
 .viewer::after, .stage::after {
@@ -62,12 +86,12 @@
   paint-order: stroke fill;
 }
 .viewer .slide h1, .stage .slide h1 {
-  color: #b6ff4d;
+  color: var(--lit-heading, #b6ff4d);
   text-shadow: .05em .07em 0 #04170a, 0 0 .8em rgb(109 255 92 / .5);
 }
-.viewer .slide h2, .stage .slide h2 { color: #6dff5c; }
+.viewer .slide h2, .stage .slide h2 { color: var(--lit-accent, #6dff5c); }
 .viewer .slide h3, .stage .slide h3 { color: #eafff0; }
-.viewer .slide strong, .stage .slide strong { color: #b6ff4d; }
+.viewer .slide strong, .stage .slide strong { color: var(--lit-heading, #b6ff4d); }
 .viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
 .viewer .slide blockquote, .stage .slide blockquote { border-left: .2em solid var(--accent); color: #bfe6c8; }
 .viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
@@ -77,11 +101,11 @@
 .viewer .slide hr, .stage .slide hr {
   border-top: 0;
   height: .26em;
-  background: repeating-linear-gradient(115deg, #6dff5c 0 14px, #04170a 14px 24px);
+  background: repeating-linear-gradient(115deg, var(--lit-accent, #6dff5c) 0 14px, #04170a 14px 24px);
 }
 .viewer .slide img, .stage .slide img {
   border-radius: 6px;
-  border: .12em solid #6dff5c;
+  border: .12em solid var(--lit-accent, #6dff5c);
   box-shadow: .18em .18em 0 #04170a, 0 0 36px rgb(109 255 92 / .3);
 }
 .viewer .slide table, .stage .slide table { background: rgb(4 23 10 / .66); }

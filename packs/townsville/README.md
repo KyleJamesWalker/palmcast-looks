@@ -32,6 +32,34 @@ palmcast --theme-dir packs/townsville/themes \
 | `townsville-flyover` | The camera banks across the rooftops. |
 | `townsville-hotline` | A hot pink flare, one shake, and the next slide is there. |
 
+## Knobs
+
+Every theme takes the same two, so there is one thing to learn rather than five.
+
+| Knob | Turns | Choices |
+|---|---|---|
+| `mood` | The sky and the heading, together | One per theme, below |
+| `drift` | How fast the backdrop moves | `calm` 60s, `normal` 34s, `brisk` 18s, `still` 0s |
+
+```markdown
+<!-- theme: townsville-powerpuff mood=midnight drift=still -->
+```
+
+| Theme | `mood` |
+|---|---|
+| `townsville-powerpuff` | `sunset` · `dawn` · `midnight` — the hour over the city; the girls keep their own colors |
+| `townsville-blossom` | `raspberry` · `cherry` · `plum` |
+| `townsville-bubbles` | `daylight` · `overcast` · `sunrise` |
+| `townsville-buttercup` | `lime` · `toxic` · `storm` |
+| `townsville-mojo` | `chemical-x` · `banana` · `doomsday` — what is in the beaker tonight |
+
+The first choice in each row is what the file ships, and it has no
+`@container style()` block of its own: it is the `var(…, fallback)`, so a
+browser without style queries shows the theme as written.
+
+`drift=still` stops the backdrop without asking for another theme. A reader who
+asks for less motion already gets that.
+
 ## Notes
 
 Every theme paints its backdrop on `.viewer` and `.stage` and keeps them opaque.

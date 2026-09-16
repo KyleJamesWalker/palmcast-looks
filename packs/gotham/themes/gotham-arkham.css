@@ -1,0 +1,118 @@
+/* Institutional green under a bad fluorescent. Tile to the ceiling, and a tube
+   overhead that gives up every few seconds. */
+
+.viewer, .stage {
+  --ground: #0d1410;
+  --raised: #16211a;
+  --edge: #2f4436;
+  --ink: #e4efe6;
+  --ink-dim: #8fa894;
+  --accent: var(--lit-tube, #9fd8a8);
+  --accent-ink: #0a100c;
+
+  --knob-ward: green;
+  --knob-ward-options: green, bone, rust;
+  --knob-flicker: 7s;
+  --knob-flicker-options: restless 3s, uneasy 7s, steady 14s, still 0s;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    repeating-linear-gradient(90deg,
+      color-mix(in srgb, var(--lit-grout, #000000) 26%, transparent) 0 1px,
+      transparent 1px 7vmin),
+    repeating-linear-gradient(0deg,
+      color-mix(in srgb, var(--lit-grout, #000000) 26%, transparent) 0 1px,
+      transparent 1px 7vmin),
+    radial-gradient(90% 46% at 50% -8%,
+      color-mix(in srgb, var(--lit-tube, #9fd8a8) 26%, transparent) 0%,
+      transparent 70%),
+    linear-gradient(180deg, var(--lit-wall, #16241a) 0%, var(--ground) 62%),
+    var(--ground);
+}
+
+/* Green is what the file ships, so it has no block of its own. */
+@container style(--knob-ward: bone) {
+  .viewer, .stage { --lit-tube: #e8e2cc; --lit-wall: #24231d; --lit-grout: #0a0a06; }
+}
+@container style(--knob-ward: rust) {
+  .viewer, .stage { --lit-tube: #e0a071; --lit-wall: #2a1c14; --lit-grout: #0d0703; }
+}
+
+/* The tube overhead, which is on the way out. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--lit-tube, #9fd8a8) 16%, transparent) 0%,
+    transparent 46%);
+  animation: palmcast-gotham-arkham-flicker var(--knob-flicker) steps(1, end) infinite;
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(125% 100% at 50% 40%, rgb(13 20 16 / 0) 42%, rgb(3 6 4 / .86) 100%);
+}
+
+@keyframes palmcast-gotham-arkham-flicker {
+  0%, 84% { opacity: 1; }
+  85%, 87% { opacity: .35; }
+  88%, 91% { opacity: 1; }
+  92%, 93% { opacity: .5; }
+  94%, 100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer::before, .stage::before { animation: none; }
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Bahnschrift", "HelveticaNeue-CondensedBold", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.viewer .slide h1, .stage .slide h1 {
+  color: color-mix(in srgb, var(--lit-tube, #9fd8a8) 40%, #ffffff);
+  text-shadow: 0 0 .7em color-mix(in srgb, var(--lit-tube, #9fd8a8) 40%, transparent);
+}
+.viewer .slide h2, .stage .slide h2 { color: var(--lit-tube, #9fd8a8); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide, .stage .slide { text-shadow: 0 1px 2px rgb(3 6 4 / .85); }
+.viewer .slide strong, .stage .slide strong { color: var(--lit-tube, #9fd8a8); }
+.viewer .slide em, .stage .slide em { color: #c9dccd; font-style: normal; font-weight: 700; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .16em solid var(--accent);
+  color: #bdd0c1;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(8 13 10 / .85);
+  border-color: rgb(47 68 54 / .9);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .12em;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 18px);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 0;
+  border: .1em solid var(--edge);
+  box-shadow: 0 12px 38px rgb(0 0 0 / .7);
+}
+.viewer .slide table, .stage .slide table { background: rgb(13 20 16 / .74); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: rgb(47 68 54 / .9); }

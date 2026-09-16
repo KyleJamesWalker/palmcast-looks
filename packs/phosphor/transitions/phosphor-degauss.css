@@ -1,0 +1,21 @@
+/* The tube wobbles, the colour bends, and it settles. One press of the button
+   nobody needed to press as often as they did. */
+@keyframes palmcast-out-phosphor-degauss {
+  0% { transform: none; filter: none; }
+  100% { transform: scale(1.04); filter: hue-rotate(80deg) saturate(2.4) brightness(1.4); opacity: 0; }
+}
+@keyframes palmcast-in-phosphor-degauss {
+  0% { transform: scale(1.06) skewX(3deg); filter: hue-rotate(-90deg) saturate(3) brightness(1.6); opacity: 0; }
+  30% { opacity: 1; }
+  46% { transform: scale(.985) skewX(-1.6deg); }
+  64% { transform: scale(1.012) skewX(.9deg); }
+  82% { transform: scale(.996) skewX(-.4deg); }
+  100% { transform: none; filter: none; opacity: 1; }
+}
+
+html[data-transition="phosphor-degauss"] {
+  --transition-out: palmcast-out-phosphor-degauss;
+  --transition-in: palmcast-in-phosphor-degauss;
+  --transition-ease: cubic-bezier(.3, .7, .3, 1);
+  --transition-duration: .8s;
+}

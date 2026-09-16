@@ -1,0 +1,119 @@
+/* Cyan lines on navy, with a title block in the corner. A grid at two pitches
+   and a border drawn the way a sheet comes off the plotter. */
+
+.viewer, .stage {
+  --ground: var(--lit-stock, #0d2b52);
+  --raised: var(--lit-panel, #143a6b);
+  --edge: var(--lit-rule, #4d87c4);
+  --ink: var(--lit-ink, #e2f1ff);
+  --ink-dim: var(--lit-dim, #a4c8e8);
+  --accent: var(--lit-accent, #7fd8ff);
+  --accent-ink: #0d2b52;
+
+  --knob-stock: blueprint;
+  --knob-stock-options: blueprint, whiteprint, sepia;
+
+  --code-keyword: var(--lit-accent, #7fd8ff);
+  --code-string: var(--lit-alt, #9ee8c4);
+  --code-comment: var(--lit-dim, #a4c8e8);
+  --code-number: var(--lit-warm, #ffd79a);
+  --code-function: var(--lit-ink, #e2f1ff);
+  --code-type: var(--lit-alt, #9ee8c4);
+  --code-variable: var(--lit-ink, #e2f1ff);
+
+  color-scheme: var(--lit-scheme, dark);
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    repeating-linear-gradient(90deg,
+      color-mix(in srgb, var(--lit-rule, #4d87c4) 52%, transparent) 0 1px,
+      transparent 1px 8vmin),
+    repeating-linear-gradient(0deg,
+      color-mix(in srgb, var(--lit-rule, #4d87c4) 52%, transparent) 0 1px,
+      transparent 1px 8vmin),
+    repeating-linear-gradient(90deg,
+      color-mix(in srgb, var(--lit-rule, #4d87c4) 22%, transparent) 0 1px,
+      transparent 1px 1.6vmin),
+    repeating-linear-gradient(0deg,
+      color-mix(in srgb, var(--lit-rule, #4d87c4) 22%, transparent) 0 1px,
+      transparent 1px 1.6vmin),
+    var(--ground);
+}
+
+/* Blueprint is what the file ships and has no block of its own. The other two
+   are the same drawing printed on other stock, and both are light. */
+@container style(--knob-stock: whiteprint) {
+  .viewer, .stage {
+    --lit-scheme: light;
+    --lit-stock: #f4f8fc; --lit-panel: #ffffff; --lit-rule: #6c9fd0;
+    --lit-ink: #143a6b; --lit-dim: #4a6f96;
+    --lit-accent: #10559e; --lit-alt: #0e6b4c; --lit-warm: #8a5200;
+  }
+}
+@container style(--knob-stock: sepia) {
+  .viewer, .stage {
+    --lit-scheme: light;
+    --lit-stock: #f2e7d2; --lit-panel: #f9f2e4; --lit-rule: #b09268;
+    --lit-ink: #3b2a16; --lit-dim: #6b543a;
+    --lit-accent: #8a4a10; --lit-alt: #45631f; --lit-warm: #7d4a00;
+  }
+}
+
+/* The border and the title block, which is where the drawing says what it is. */
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 2.2vmin;
+  z-index: -1;
+  pointer-events: none;
+  border: 2px solid color-mix(in srgb, var(--lit-rule, #4d87c4) 88%, transparent);
+  box-shadow:
+    inset 0 0 0 1.1vmin transparent,
+    inset 0 0 0 calc(1.1vmin + 1px) color-mix(in srgb, var(--lit-rule, #4d87c4) 52%, transparent);
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Bahnschrift", "HelveticaNeue-CondensedBold", "Arial Narrow",
+    ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--lit-accent, #7fd8ff); }
+.viewer .slide h2, .stage .slide h2 { color: var(--ink); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink-dim); }
+
+.viewer .slide, .stage .slide {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.viewer .slide strong, .stage .slide strong { color: var(--lit-accent, #7fd8ff); }
+.viewer .slide em, .stage .slide em { color: var(--lit-alt, #9ee8c4); font-style: normal; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: var(--ink-dim);
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: color-mix(in srgb, var(--lit-panel, #143a6b) 82%, transparent);
+  border-color: color-mix(in srgb, var(--lit-rule, #4d87c4) 70%, transparent);
+  color: var(--code-variable);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: 2px;
+  background: var(--edge);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 0;
+  border: 1px solid var(--edge);
+  box-shadow: none;
+}
+.viewer .slide table, .stage .slide table {
+  background: color-mix(in srgb, var(--lit-panel, #143a6b) 62%, transparent);
+}
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--edge); }

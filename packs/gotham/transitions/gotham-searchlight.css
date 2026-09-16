@@ -1,0 +1,25 @@
+/* A beam sweeps the sky and finds the next slide. It crosses from the left and
+   leaves the new slide behind it. */
+@property --palmcast-gotham-searchlight {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes palmcast-in-gotham-searchlight {
+  from { --palmcast-gotham-searchlight: 0deg; }
+  to { --palmcast-gotham-searchlight: 180deg; }
+}
+
+html[data-transition="gotham-searchlight"] {
+  --transition-out: palmcast-hold;
+  --transition-in: palmcast-in-gotham-searchlight;
+  --transition-ease: cubic-bezier(.42, 0, .32, 1);
+  --transition-duration: .9s;
+}
+
+/* The beam itself: a cone opening from the foot of the screen. */
+html[data-transition="gotham-searchlight"]::view-transition-new(palmcast-surface) {
+  mask-image: conic-gradient(from 270deg at 50% 100%,
+    #000 var(--palmcast-gotham-searchlight), #0000 0);
+}

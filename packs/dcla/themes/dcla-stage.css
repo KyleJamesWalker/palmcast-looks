@@ -1,0 +1,82 @@
+/* Near black for the big room, with the same three. The inverse of the keynote
+   theme, for a screen the whole hall is reading at once. */
+
+.viewer, .stage {
+  --ground: #0e0e13;
+  --raised: #1a1a22;
+  --edge: #34343f;
+  --ink: #f2f2f5;
+  --ink-dim: #a1a1aa;
+  --accent: var(--knob-accent);
+  --accent-ink: #0d0d11;
+
+  --knob-accent: #169fff;
+  --knob-accent-options: azure #169fff, amber #ffa800, violet #a452ff;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(74% 46% at 100% 0%,
+      color-mix(in srgb, var(--knob-accent) 22%, transparent) 0%, transparent 68%),
+    radial-gradient(64% 42% at 0% 100%,
+      color-mix(in srgb, var(--knob-accent) 14%, transparent) 0%, transparent 68%),
+    var(--ground);
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 6px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, #169fff 0 33.4%, #ffa800 33.4% 66.7%, #a452ff 66.7%);
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Barlow Condensed", "Barlow", "HelveticaNeue-CondensedBold",
+    "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -.005em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--knob-accent); }
+.viewer .slide h2, .stage .slide h2 { color: var(--ink); }
+.viewer .slide h3, .stage .slide h3 {
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.viewer .slide, .stage .slide {
+  font-family: "Barlow", "Helvetica Neue", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+.viewer .slide strong, .stage .slide strong { color: var(--knob-accent); }
+.viewer .slide em, .stage .slide em { font-style: italic; color: #d7d7de; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: #c6c6d0;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(10 10 14 / .86);
+  border-color: var(--edge);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .18em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #169fff, #ffa800, #a452ff);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 8px;
+  border: 1px solid var(--edge);
+  box-shadow: 0 10px 34px rgb(0 0 0 / .6);
+}
+.viewer .slide table, .stage .slide table { background: rgb(26 26 34 / .7); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--edge); }

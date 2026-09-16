@@ -1,0 +1,17 @@
+/* A pellet goes off and the pair blur through it. Everything goes grey for a
+   moment, then comes back sharp. */
+@keyframes palmcast-out-gotham-smoke {
+  to { transform: scale(1.1); opacity: 0; filter: blur(22px) grayscale(1) brightness(1.5); }
+}
+@keyframes palmcast-in-gotham-smoke {
+  from { transform: scale(.94); opacity: 0; filter: blur(20px) grayscale(1) brightness(1.4); }
+  58% { opacity: 1; }
+  to { transform: none; opacity: 1; filter: none; }
+}
+
+html[data-transition="gotham-smoke"] {
+  --transition-out: palmcast-out-gotham-smoke;
+  --transition-in: palmcast-in-gotham-smoke;
+  --transition-ease: cubic-bezier(.4, 0, .3, 1);
+  --transition-duration: .74s;
+}

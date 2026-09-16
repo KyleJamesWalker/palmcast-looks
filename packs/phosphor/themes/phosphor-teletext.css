@@ -1,0 +1,103 @@
+/* Ceefax at closing time: eight colours on black. Blocky type, a coloured
+   header bar, and nothing on screen that the 1970s could not draw. */
+
+.viewer, .stage {
+  --ground: #000000;
+  --raised: #101010;
+  --edge: #3a3a3a;
+  --ink: #ffffff;
+  --ink-dim: #b4b4b4;
+  --accent: var(--lit-head, #ffff00);
+  --accent-ink: #000000;
+
+  --knob-page: news;
+  --knob-page-options: news, sport, weather;
+
+  --code-keyword: #ff55ff;
+  --code-string: #55ff55;
+  --code-comment: #9a9a9a;
+  --code-number: #ffff55;
+  --code-function: #55ffff;
+  --code-type: #ffffff;
+  --code-variable: #e8e8e8;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background: var(--ground);
+}
+
+/* News is what the file ships and has no block of its own. */
+@container style(--knob-page: sport) {
+  .viewer, .stage { --lit-head: #55ff55; --lit-sub: #55ffff; }
+}
+@container style(--knob-page: weather) {
+  .viewer, .stage { --lit-head: #55ffff; --lit-sub: #ffff00; }
+}
+
+/* The header bar, and the block graphics down the margin. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2.2vmin;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(90deg,
+    #ff0000 0 12.5%, #ffff00 12.5% 25%, #00ff00 25% 37.5%, #00ffff 37.5% 50%,
+    #0000ff 50% 62.5%, #ff00ff 62.5% 75%, #ffffff 75% 87.5%, #808080 87.5% 100%);
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg,
+    rgb(255 255 255 / .035) 0 2px, transparent 2px 4px);
+}
+
+.viewer .slide, .stage .slide {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+}
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--lit-head, #ffff00); }
+.viewer .slide h2, .stage .slide h2 { color: var(--lit-sub, #55ffff); }
+.viewer .slide h3, .stage .slide h3 { color: #ffffff; }
+
+.viewer .slide strong, .stage .slide strong { color: var(--lit-head, #ffff00); }
+.viewer .slide em, .stage .slide em { color: #55ff55; font-style: normal; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .3em solid var(--accent);
+  color: #d2d2d2;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: #000000;
+  border-color: #3a3a3a;
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .3em;
+  background: repeating-linear-gradient(90deg,
+    #ff0000 0 16.6%, #ffff00 16.6% 33.3%, #00ff00 33.3% 50%,
+    #00ffff 50% 66.6%, #0000ff 66.6% 83.3%, #ff00ff 83.3% 100%);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 0;
+  border: .12em solid #ffffff;
+  box-shadow: none;
+}
+.viewer .slide table, .stage .slide table { background: #000000; }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: #3a3a3a; }

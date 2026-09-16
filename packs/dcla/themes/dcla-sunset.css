@@ -1,0 +1,105 @@
+/* Los Angeles at golden hour, palms on the skyline. Violet running down into
+   amber, with the city in silhouette along the bottom edge. */
+
+.viewer, .stage {
+  --ground: #1a0f2b;
+  --raised: #2a1a42;
+  --edge: #513a76;
+  --ink: #fdf3ff;
+  --ink-dim: #c2a8de;
+  --accent: var(--lit-accent, #ffa800);
+  --accent-ink: #1a0f2b;
+
+  --knob-hour: golden;
+  --knob-hour-options: golden, dusk, night;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(130% 78% at 50% 100%,
+      var(--lit-sun, #ffd98a) 0%, var(--lit-low, #ffa800) 12%,
+      var(--lit-mid, #e8506a) 34%, var(--lit-high, #6b2f9e) 62%,
+      rgb(26 15 43 / 0) 88%),
+    linear-gradient(180deg, var(--lit-sky, #169fff) 0%, rgb(26 15 43 / 0) 54%),
+    var(--ground);
+}
+
+/* Golden is what the file ships and has no block of its own. */
+@container style(--knob-hour: dusk) {
+  .viewer, .stage {
+    --lit-accent: #ff7a9c;
+    --lit-sun: #ffc0d4; --lit-low: #ff7a9c; --lit-mid: #a452ff;
+    --lit-high: #3d2270; --lit-sky: #2b6bd6;
+  }
+}
+@container style(--knob-hour: night) {
+  .viewer, .stage {
+    --lit-accent: #a452ff;
+    --lit-sun: #d7c2ff; --lit-low: #a452ff; --lit-mid: #5a2f9e;
+    --lit-high: #221046; --lit-sky: #0d2a55;
+  }
+}
+
+/* The city, and the palms in front of it. */
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 220'%3E%3Cg fill='%23140a22'%3E%3Crect x='0' y='168' width='120' height='52'/%3E%3Crect x='110' y='140' width='58' height='80'/%3E%3Crect x='162' y='108' width='70' height='112'/%3E%3Crect x='226' y='152' width='52' height='68'/%3E%3Crect x='272' y='92' width='64' height='128'/%3E%3Crect x='330' y='136' width='48' height='84'/%3E%3Crect x='372' y='160' width='76' height='60'/%3E%3Crect x='442' y='116' width='56' height='104'/%3E%3Crect x='492' y='150' width='44' height='70'/%3E%3Crect x='530' y='76' width='68' height='144'/%3E%3Crect x='592' y='126' width='50' height='94'/%3E%3Crect x='636' y='158' width='72' height='62'/%3E%3Crect x='702' y='104' width='58' height='116'/%3E%3Crect x='754' y='144' width='46' height='76'/%3E%3Crect x='794' y='170' width='88' height='50'/%3E%3Crect x='876' y='120' width='60' height='100'/%3E%3Crect x='930' y='156' width='50' height='64'/%3E%3Crect x='974' y='98' width='66' height='122'/%3E%3Crect x='1034' y='148' width='54' height='72'/%3E%3Crect x='1082' y='174' width='118' height='46'/%3E%3C/g%3E%3Cg fill='none' stroke='%23140a22' stroke-width='7' stroke-linecap='round'%3E%3Cpath d='M150 220 Q146 150 140 104'/%3E%3Cpath d='M1044 220 Q1050 144 1058 96'/%3E%3C/g%3E%3Cg fill='%23140a22'%3E%3Cpath d='M140 104 Q106 84 84 96 Q112 84 140 100 Q126 66 100 54 Q132 66 142 98 Q156 64 186 52 Q156 70 144 102 Q172 84 200 92 Q170 86 140 104z'/%3E%3Cpath d='M1058 96 Q1024 76 1002 88 Q1030 76 1058 92 Q1044 58 1018 46 Q1050 58 1060 90 Q1074 56 1104 44 Q1074 62 1062 94 Q1090 76 1118 84 Q1088 78 1058 96z'/%3E%3C/g%3E%3C/svg%3E")
+      bottom center / 100% auto no-repeat,
+    linear-gradient(180deg, rgb(12 6 20 / .3) 0%, rgb(12 6 20 / .46) 100%),
+    radial-gradient(130% 100% at 50% 42%, rgb(26 15 43 / 0) 46%, rgb(10 5 18 / .74) 100%);
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Barlow Condensed", "Barlow", "HelveticaNeue-CondensedBold",
+    "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -.005em;
+}
+.viewer .slide h1, .stage .slide h1 {
+  color: color-mix(in srgb, var(--lit-accent, #ffa800) 35%, #ffffff);
+  text-shadow: 0 .05em .6em rgb(10 5 18 / .6);
+}
+.viewer .slide h2, .stage .slide h2 {
+  color: color-mix(in srgb, var(--lit-accent, #ffa800) 58%, #ffffff);
+}
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide, .stage .slide {
+  font-family: "Barlow", "Helvetica Neue", Inter, ui-sans-serif, system-ui, sans-serif;
+  text-shadow: 0 1px 3px rgb(10 5 18 / .8);
+}
+.viewer .slide strong, .stage .slide strong { color: var(--lit-accent, #ffa800); }
+.viewer .slide em, .stage .slide em { font-style: italic; color: #e6cdf7; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: #f0e2fb;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(16 9 28 / .84);
+  border-color: rgb(81 58 118 / .9);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .2em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #a452ff, #e8506a, #ffa800);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 10px;
+  border: .1em solid var(--edge);
+  box-shadow: 0 12px 40px rgb(0 0 0 / .55);
+}
+.viewer .slide table, .stage .slide table { background: rgb(26 15 43 / .72); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: rgb(81 58 118 / .9); }

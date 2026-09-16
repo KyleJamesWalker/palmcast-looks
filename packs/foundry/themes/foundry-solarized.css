@@ -1,0 +1,91 @@
+/* Solarized, the pair everyone already knows. Both grounds share one set of
+   accents, which is the whole idea of it, so one knob swaps the ground alone. */
+
+.viewer, .stage {
+  --ground: var(--lit-bg, #002b36);
+  --raised: var(--lit-bg1, #073642);
+  --edge: var(--lit-edge, #16505e);
+  --ink: var(--lit-fg, #eee8d5);
+  --ink-dim: var(--lit-dim, #93a1a1);
+  --accent: var(--lit-blue, #4fa1db);
+  --accent-ink: var(--lit-bg, #002b36);
+
+  --knob-mode: dark;
+  --knob-mode-options: dark, light;
+
+  /* Solarized keeps one accent set for both grounds. These are that set with
+     the lightness moved far enough for a projector, per ground. */
+  --code-keyword: var(--lit-green, #91a31a);
+  --code-string: var(--lit-cyan, #3faaa2);
+  --code-comment: var(--lit-dim, #93a1a1);
+  --code-number: var(--lit-magenta, #e278ab);
+  --code-function: var(--lit-blue, #4fa1db);
+  --code-type: var(--lit-yellow, #bc951a);
+  --code-variable: var(--lit-fg, #eee8d5);
+
+  color-scheme: var(--lit-scheme, dark);
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(66% 44% at 86% 4%,
+      color-mix(in srgb, var(--lit-blue, #4fa1db) 13%, transparent) 0%, transparent 70%),
+    radial-gradient(52% 38% at 8% 98%,
+      color-mix(in srgb, var(--lit-cyan, #3faaa2) 10%, transparent) 0%, transparent 70%),
+    var(--ground);
+}
+
+/* Dark is what the file ships and has no block of its own. */
+@container style(--knob-mode: light) {
+  .viewer, .stage {
+    --lit-scheme: light;
+    --lit-bg: #fdf6e3; --lit-bg1: #eee8d5; --lit-edge: #d7d0bb;
+    --lit-fg: #073642; --lit-dim: #5f7477;
+    --lit-green: #606e00; --lit-cyan: #1a625d; --lit-magenta: #ba3072;
+    --lit-blue: #1e6ca4; --lit-yellow: #826300; --lit-orange: #a83c11;
+    --lit-violet: #4b4f9a;
+  }
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-sans-serif, Inter, "Helvetica Neue", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -.008em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--lit-blue, #4fa1db); }
+.viewer .slide h2, .stage .slide h2 { color: var(--lit-cyan, #3faaa2); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide strong, .stage .slide strong { color: var(--lit-orange, #e0722f); }
+.viewer .slide em, .stage .slide em { color: var(--lit-violet, #9095dc); font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: var(--ink-dim);
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: color-mix(in srgb, var(--lit-bg1, #073642) 88%, transparent);
+  border-color: var(--lit-edge, #16505e);
+  color: var(--code-variable);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .12em;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    var(--lit-blue, #4fa1db), var(--lit-cyan, #3faaa2),
+    var(--lit-green, #91a31a), var(--lit-yellow, #bc951a));
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 6px;
+  border: 1px solid var(--lit-edge, #16505e);
+  box-shadow: 0 8px 26px rgb(0 0 0 / .3);
+}
+.viewer .slide table, .stage .slide table {
+  background: color-mix(in srgb, var(--lit-bg1, #073642) 68%, transparent);
+}
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--lit-edge, #16505e); }

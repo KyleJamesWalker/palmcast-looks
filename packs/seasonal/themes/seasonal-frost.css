@@ -1,0 +1,122 @@
+/* Snow coming down, and a blue hour behind it. Three times of day, all of them
+   cold, and the flakes stop for anyone who asked for less motion. */
+
+.viewer, .stage {
+  --ground: var(--lit-ground, #0c1b30);
+  --raised: var(--lit-raised, #16293f);
+  --edge: var(--lit-edge, #35516e);
+  --ink: var(--lit-ink, #eaf4ff);
+  --ink-dim: var(--lit-dim, #a8c2dc);
+  --accent: var(--lit-accent, #8fd4ff);
+  --accent-ink: #0c1b30;
+
+  --knob-hour: night;
+  --knob-hour-options: night, dusk, day;
+  --knob-drift: 26s;
+  --knob-drift-options: calm 48s, normal 26s, brisk 13s, still 0s;
+
+  --code-keyword: var(--lit-accent, #8fd4ff);
+  --code-string: var(--lit-alt, #a8e8c8);
+  --code-comment: var(--lit-dim, #a8c2dc);
+  --code-number: var(--lit-warm, #ffd8a0);
+  --code-function: var(--lit-ink, #eaf4ff);
+  --code-type: var(--lit-alt, #a8e8c8);
+  --code-variable: var(--lit-ink, #eaf4ff);
+
+  color-scheme: var(--lit-scheme, dark);
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(120% 68% at 50% 104%,
+      var(--lit-low, #2b4d74) 0%, var(--lit-mid, #17304c) 40%, rgb(12 27 48 / 0) 78%),
+    linear-gradient(180deg, var(--lit-sky, #061020) 0%, rgb(12 27 48 / 0) 58%),
+    var(--ground);
+}
+
+/* Night is what the file ships and has no block of its own. Day is the light
+   one, for a room that has its curtains open. */
+@container style(--knob-hour: dusk) {
+  .viewer, .stage {
+    --lit-ground: #1a2140; --lit-raised: #262e52; --lit-edge: #4a5488;
+    --lit-accent: #c3b4ff; --lit-alt: #ffc9e0; --lit-warm: #ffcf9a;
+    --lit-low: #6a5a9e; --lit-mid: #2e2c5c; --lit-sky: #120e2c;
+  }
+}
+@container style(--knob-hour: day) {
+  .viewer, .stage {
+    --lit-scheme: light;
+    --lit-ground: #eef5fb; --lit-raised: #ffffff; --lit-edge: #b8cbdd;
+    --lit-ink: #17324c; --lit-dim: #3f5e78;
+    --lit-accent: #14618f; --lit-alt: #136b4a; --lit-warm: #8a5200;
+    --lit-low: #cfe3f3; --lit-mid: #e4eff8; --lit-sky: #b9d6ee;
+  }
+}
+
+/* Snow, coming down and across. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: -40% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cg fill='%23ffffff' fill-opacity='.55'%3E%3Ccircle cx='40' cy='60' r='3.2'/%3E%3Ccircle cx='150' cy='28' r='2.1'/%3E%3Ccircle cx='262' cy='84' r='3.6'/%3E%3Ccircle cx='348' cy='42' r='2.4'/%3E%3Ccircle cx='88' cy='150' r='2.8'/%3E%3Ccircle cx='196' cy='176' r='3.4'/%3E%3Ccircle cx='306' cy='140' r='2.2'/%3E%3Ccircle cx='372' cy='198' r='3'/%3E%3Ccircle cx='28' cy='232' r='2.6'/%3E%3Ccircle cx='132' cy='268' r='3.8'/%3E%3Ccircle cx='238' cy='244' r='2.3'/%3E%3Ccircle cx='330' cy='296' r='3.1'/%3E%3Ccircle cx='66' cy='330' r='2.5'/%3E%3Ccircle cx='178' cy='356' r='3.3'/%3E%3Ccircle cx='288' cy='372' r='2.2'/%3E%3Ccircle cx='384' cy='340' r='2.9'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 40vmin 40vmin repeat;
+  animation: palmcast-seasonal-frost-drift var(--knob-drift) linear infinite;
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(128% 100% at 50% 46%,
+    rgb(0 0 0 / 0) 48%, color-mix(in srgb, var(--lit-sky, #061020) 72%, transparent) 100%);
+}
+
+@keyframes palmcast-seasonal-frost-drift { to { background-position: -12vmin 80vmin; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer::before, .stage::before { animation: none; }
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-sans-serif, Inter, "Helvetica Neue", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -.008em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--lit-accent, #8fd4ff); }
+.viewer .slide h2, .stage .slide h2 { color: var(--ink); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink-dim); }
+
+.viewer .slide strong, .stage .slide strong { color: var(--lit-accent, #8fd4ff); }
+.viewer .slide em, .stage .slide em { color: var(--lit-alt, #a8e8c8); font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: var(--ink-dim);
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: color-mix(in srgb, var(--lit-raised, #16293f) 86%, transparent);
+  border-color: var(--edge);
+  color: var(--code-variable);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .12em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 8px;
+  border: 1px solid var(--edge);
+  box-shadow: 0 10px 30px rgb(0 0 0 / .35);
+}
+.viewer .slide table, .stage .slide table {
+  background: color-mix(in srgb, var(--lit-raised, #16293f) 66%, transparent);
+}
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--edge); }

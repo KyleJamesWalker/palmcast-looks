@@ -1,0 +1,113 @@
+/* Charcoal, and one hard cone thrown up at the cloud. Everything else stays out
+   of the way of the beam and the type standing in it. */
+
+.viewer, .stage {
+  --ground: #0b0c10;
+  --raised: #171920;
+  --edge: #333744;
+  --ink: #edeff4;
+  --ink-dim: #9aa0ad;
+  --accent: var(--lit-beam, #ffc247);
+  --accent-ink: #0b0c10;
+
+  --knob-beam: amber;
+  --knob-beam-options: amber, white, crimson;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    conic-gradient(from 200deg at 50% 118%,
+      transparent 0deg 18deg,
+      color-mix(in srgb, var(--lit-beam, #ffc247) 20%, transparent) 26deg,
+      color-mix(in srgb, var(--lit-beam, #ffc247) 7%, transparent) 40deg,
+      transparent 48deg 360deg),
+    radial-gradient(70% 46% at 50% 112%,
+      color-mix(in srgb, var(--lit-beam, #ffc247) 34%, transparent) 0%,
+      transparent 74%),
+    radial-gradient(90% 60% at 50% -10%, var(--lit-cloud, #1b1d27) 0%, rgb(11 12 16 / 0) 72%),
+    var(--ground);
+}
+
+/* Amber is what the file ships and needs no block of its own. */
+@container style(--knob-beam: white) {
+  .viewer, .stage { --lit-beam: #eaf3ff; --lit-cloud: #1a1e2a; }
+}
+@container style(--knob-beam: crimson) {
+  .viewer, .stage { --lit-beam: #ff4d5e; --lit-cloud: #251319; }
+}
+
+/* Dust in the beam. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: -20% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 30%,
+      color-mix(in srgb, var(--lit-beam, #ffc247) 22%, transparent) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 68% 62%,
+      color-mix(in srgb, var(--lit-beam, #ffc247) 16%, transparent) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 44% 84%,
+      color-mix(in srgb, var(--lit-beam, #ffc247) 18%, transparent) 0 1px, transparent 1.5px);
+  background-size: 17vmin 17vmin;
+  animation: palmcast-gotham-signal-dust 26s linear infinite;
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 50%, rgb(11 12 16 / 0) 40%, rgb(2 2 4 / .88) 100%);
+}
+
+@keyframes palmcast-gotham-signal-dust { to { background-position: 17vmin -34vmin; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer::before, .stage::before { animation: none; }
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: "Bahnschrift", "HelveticaNeue-CondensedBold", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.viewer .slide h1, .stage .slide h1 {
+  color: color-mix(in srgb, var(--lit-beam, #ffc247) 34%, #ffffff);
+  text-shadow: 0 0 .8em color-mix(in srgb, var(--lit-beam, #ffc247) 52%, transparent);
+}
+.viewer .slide h2, .stage .slide h2 { color: var(--lit-beam, #ffc247); }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide, .stage .slide { text-shadow: 0 1px 3px rgb(2 2 4 / .9); }
+.viewer .slide strong, .stage .slide strong { color: var(--lit-beam, #ffc247); }
+.viewer .slide em, .stage .slide em { color: #d6dae4; font-style: normal; font-weight: 700; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .16em solid var(--accent);
+  color: #c6cad4;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(7 8 11 / .85);
+  border-color: rgb(51 55 68 / .9);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .14em;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 2px;
+  border: .1em solid var(--edge);
+  box-shadow: 0 14px 44px rgb(0 0 0 / .75);
+}
+.viewer .slide table, .stage .slide table { background: rgb(11 12 16 / .74); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: rgb(51 55 68 / .9); }

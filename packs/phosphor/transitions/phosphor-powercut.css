@@ -1,0 +1,23 @@
+/* Down to a line, then a dot, then back out of it. The switch goes off and
+   comes straight back on. */
+@keyframes palmcast-out-phosphor-powercut {
+  0% { transform: none; filter: none; }
+  46% { transform: scaleY(.006); filter: brightness(2.6); }
+  74% { transform: scale(.02, .006); filter: brightness(3.4); }
+  100% { transform: scale(0, .004); filter: brightness(4); opacity: 0; }
+}
+@keyframes palmcast-in-phosphor-powercut {
+  0%, 52% { transform: scale(0, .004); opacity: 0; }
+  62% { transform: scale(.03, .006); opacity: 1; filter: brightness(3.4); }
+  80% { transform: scale(1, .01); filter: brightness(2.4); }
+  100% { transform: none; filter: none; opacity: 1; }
+}
+
+html[data-transition="phosphor-powercut"] {
+  --transition-out: palmcast-out-phosphor-powercut;
+  --transition-in: palmcast-in-phosphor-powercut;
+  --transition-ease: cubic-bezier(.5, 0, .5, 1);
+  --transition-duration: .76s;
+  --transition-lift: 1;
+  --transition-drop: 0;
+}

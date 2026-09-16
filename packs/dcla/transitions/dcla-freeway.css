@@ -1,0 +1,16 @@
+/* A lane change at speed, and the next is alongside. Both slides lean into the
+   move and blur along the line they travel. */
+@keyframes palmcast-out-dcla-freeway {
+  to { transform: translateX(-112%) skewX(9deg); filter: blur(7px); opacity: .3; }
+}
+@keyframes palmcast-in-dcla-freeway {
+  from { transform: translateX(112%) skewX(-9deg); filter: blur(7px); opacity: .3; }
+  to { transform: none; filter: none; opacity: 1; }
+}
+
+html[data-transition="dcla-freeway"] {
+  --transition-out: palmcast-out-dcla-freeway;
+  --transition-in: palmcast-in-dcla-freeway;
+  --transition-ease: cubic-bezier(.7, 0, .25, 1);
+  --transition-duration: .54s;
+}

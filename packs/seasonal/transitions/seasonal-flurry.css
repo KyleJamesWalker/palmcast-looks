@@ -1,0 +1,16 @@
+/* The slide is carried off and the next drifts in. Both turn a little on the
+   way, the way anything light does when it falls. */
+@keyframes palmcast-out-seasonal-flurry {
+  to { transform: translate(-22%, 44%) rotate(-7deg) scale(.86); opacity: 0; filter: blur(6px); }
+}
+@keyframes palmcast-in-seasonal-flurry {
+  from { transform: translate(16%, -48%) rotate(6deg) scale(.88); opacity: 0; filter: blur(6px); }
+  to { transform: none; opacity: 1; filter: none; }
+}
+
+html[data-transition="seasonal-flurry"] {
+  --transition-out: palmcast-out-seasonal-flurry;
+  --transition-in: palmcast-in-seasonal-flurry;
+  --transition-ease: cubic-bezier(.35, .05, .3, 1);
+  --transition-duration: .76s;
+}

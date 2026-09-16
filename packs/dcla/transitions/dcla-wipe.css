@@ -1,0 +1,32 @@
+/* The three brand colours sweep across as one bar. It crosses from the left and
+   leaves the next slide behind it. */
+@property --palmcast-dcla-wipe {
+  syntax: "<percentage>";
+  initial-value: 0%;
+  inherits: false;
+}
+
+@keyframes palmcast-in-dcla-wipe {
+  from { --palmcast-dcla-wipe: 0%; }
+  to { --palmcast-dcla-wipe: 160%; }
+}
+
+html[data-transition="dcla-wipe"] {
+  --transition-out: palmcast-hold;
+  --transition-in: palmcast-in-dcla-wipe;
+  --transition-ease: cubic-bezier(.65, 0, .35, 1);
+  --transition-duration: .72s;
+}
+
+/* The bar itself is the leading edge of the mask, so the three colours are what
+   the eye follows across rather than a fourth thing drawn on top. */
+html[data-transition="dcla-wipe"]::view-transition-new(palmcast-surface) {
+  mask-image: linear-gradient(90deg,
+    #000 0 calc(var(--palmcast-dcla-wipe) - 14%),
+    #0000 var(--palmcast-dcla-wipe) 100%);
+}
+html[data-transition="dcla-wipe"]::view-transition-old(palmcast-surface) {
+  mask-image: linear-gradient(90deg,
+    #0000 0 calc(var(--palmcast-dcla-wipe) - 14%),
+    #000 var(--palmcast-dcla-wipe) 100%);
+}

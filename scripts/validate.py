@@ -21,6 +21,47 @@ KEYFRAMES = re.compile(r"@keyframes\s+([\w-]+)")
 SELECTOR = re.compile(r'html\[data-transition="([^"]+)"\]')
 # base.css defines this one for every transition to use.
 SHARED_KEYFRAMES = {"palmcast-hold"}
+# src/styles.rs: a declaration of a knob, and the list of choices beside it.
+KNOB = re.compile(r"--knob-([\w-]+)\s*:([^;}]*)")
+OPTIONS = "-options"
+# src/deck.rs: a knob value a deck may write, and one a look may declare.
+HEX = re.compile(r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
+NUMBER = re.compile(r"^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$")
+
+
+def is_time(value):
+    """A duration, on src/deck.rs's terms: whole milliseconds, or up to 60s."""
+    if value.endswith("ms"):
+        return value[:-2].isdigit()
+    if not value.endswith("s") or not NUMBER.match(value[:-1]):
+        return False
+    return 0.0 <= float(value[:-1]) <= 60.0
+
+
+def knob_value(value):
+    """Whether a deck could write this, the way src/deck.rs decides it."""
+    if not value or len(value) > 32:
+        return False
+    share = value[:-1] if value.endswith("%") else ""
+    return bool(
+        HEX.match(value)
+        or is_time(value)
+        or NUMBER.match(value)
+        or (share and NUMBER.match(share))
+        or NAME.match(value)
+    )
+
+
+def choices(value):
+    """The choices a look offers, the way src/styles.rs reads the list."""
+    out = []
+    for entry in value.split(","):
+        words = entry.split()
+        if len(words) == 1:
+            out.append((words[0], words[0]))
+        elif len(words) == 2:
+            out.append((words[0], words[1]))
+    return out
 
 
 def about(css):
@@ -37,6 +78,84 @@ def about(css):
             break
         out += piece
     return out[:140].strip()
+
+
+# A colour literal outside a data URI. Anything starting `#` that is not one is
+# a typo the browser drops silently, taking the declaration with it.
+COLOUR = re.compile(r"#[^\s;,(){}/'\"]+")
+DATA_URI = re.compile(r"url\(\s*[\"']?data:[^)]*\)", re.S)
+
+
+def check_colours(css, where, failures):
+    """Every `#rrggbb` in the file is one the browser will actually read.
+
+    A stray character inside a hex value is invisible in review and silently
+    drops the whole declaration, so the theme loses a colour and says nothing.
+    """
+    for literal in COLOUR.findall(DATA_URI.sub("", css)):
+        digits = literal[1:]
+        if len(digits) in (3, 4, 6, 8) and all(c in "0123456789abcdefABCDEF" for c in digits):
+            continue
+        # Nothing with a digit in it is an id selector, and an id selector is
+        # the only other thing in a stylesheet that opens with a hash.
+        if not any(c.isdigit() for c in digits):
+            continue
+        failures.append(f"{where}: {literal} is not a colour the browser will read")
+
+
+def check_knobs(css, where, failures):
+    """The knobs a look puts its name to, on the terms src/styles.rs reads them.
+
+    A knob nobody can turn is worse than no knob: it takes a row in the picker
+    and does nothing, and the file gives no sign of it.
+    """
+    declared = {}
+    lists = {}
+    for name, raw in KNOB.findall(css):
+        value = raw.strip()
+        target = lists if name.endswith(OPTIONS) else declared
+        if name in target:
+            continue
+        target[name] = value
+
+    for name, value in declared.items():
+        if not NAME.match(name):
+            failures.append(f"{where}: --knob-{name} is not a name the server will read")
+            continue
+        if not value or len(value.encode()) > 200:
+            failures.append(f"{where}: --knob-{name} has no value the server will read")
+        elif "var(" in value:
+            failures.append(
+                f"{where}: --knob-{name} holds a var(), and the server reads that as a "
+                "use rather than a declaration, so the knob never reaches the picker"
+            )
+        elif name + OPTIONS not in lists and not knob_value(value):
+            failures.append(
+                f"{where}: --knob-{name} defaults to '{value}', which a deck cannot write"
+            )
+
+    for name, value in lists.items():
+        of = name[: -len(OPTIONS)]
+        if of not in declared:
+            failures.append(f"{where}: --knob-{name} describes a knob the file never declares")
+            continue
+        offered = choices(value)
+        if not offered:
+            failures.append(f"{where}: --knob-{name} offers nothing the server can read")
+            continue
+        for label, choice in offered:
+            if not NAME.match(label):
+                failures.append(f"{where}: --knob-{name} offers '{label}', which is not a name")
+            if not knob_value(choice):
+                failures.append(
+                    f"{where}: --knob-{name} offers '{label} {choice}', "
+                    "and a deck cannot write that value"
+                )
+        if declared[of] not in [choice for _, choice in offered]:
+            failures.append(
+                f"{where}: --knob-{of} defaults to '{declared[of]}', "
+                "which is not one of the choices beside it"
+            )
 
 
 def check_file(path, pack, kind, failures):
@@ -71,11 +190,15 @@ def check_file(path, pack, kind, failures):
                 "because every loaded transition shares one namespace"
             )
 
+    check_colours(css, where, failures)
+    check_knobs(css, where, failures)
+
     if kind == "transitions":
-        named = SELECTOR.findall(css)
-        if named != [stem]:
+        named = set(SELECTOR.findall(css))
+        if named != {stem}:
             failures.append(
-                f"{where}: selects data-transition={named or 'nothing'}, expected ['{stem}']"
+                f"{where}: selects data-transition={sorted(named) or 'nothing'}, "
+                f"expected only '{stem}'"
             )
 
 

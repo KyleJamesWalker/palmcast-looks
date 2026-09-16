@@ -7,8 +7,13 @@
   --edge: #5b3fa0;
   --ink: #eee6ff;
   --ink-dim: #a68fd6;
-  --accent: #56ffb0;
+  --accent: var(--lit-accent, #56ffb0);
   --accent-ink: #032018;
+
+  --knob-mood: chemical-x;
+  --knob-mood-options: chemical-x, banana, doomsday;
+  --knob-drift: 34s;
+  --knob-drift-options: calm 60s, normal 34s, brisk 18s, still 0s;
 
   color-scheme: dark;
   color: var(--ink);
@@ -17,13 +22,33 @@
   overflow: clip;
 
   background:
-    repeating-linear-gradient(0deg, rgb(86 255 176 / .05) 0 1px, rgb(86 255 176 / 0) 1px 4px),
-    radial-gradient(140% 70% at 50% 104%, #b6ffdd 0%, #56ffb0 10%, #23a97e 24%, #4b2a8f 50%, rgb(18 10 37 / 0) 80%),
+    repeating-linear-gradient(0deg,
+      color-mix(in srgb, var(--lit-accent, #56ffb0) 5%, transparent) 0 1px,
+      transparent 1px 4px),
+    radial-gradient(140% 70% at 50% 104%,
+      var(--lit-hot, #b6ffdd) 0%, var(--lit-warm, #56ffb0) 10%,
+      var(--lit-mid, #23a97e) 24%, var(--lit-deep, #4b2a8f) 50%,
+      rgb(18 10 37 / 0) 80%),
     radial-gradient(80% 60% at 8% 0%, rgb(160 86 255 / .3), rgb(18 10 37 / 0) 70%),
     var(--ground);
 }
 
 /* Chemical X, rising. */
+/* What is in the beaker tonight. The lab purple stays; the readout does not.
+   Chemical X is what the file ships and has no block of its own. */
+@container style(--knob-mood: banana) {
+  .viewer, .stage {
+    --lit-hot: #fff2c0; --lit-warm: #ffd23d; --lit-mid: #c78b12; --lit-deep: #4b2a8f;
+    --lit-heading: #ffd23d; --lit-accent: #ffd23d;
+  }
+}
+@container style(--knob-mood: doomsday) {
+  .viewer, .stage {
+    --lit-hot: #ffd6d0; --lit-warm: #ff5c4d; --lit-mid: #b81d1d; --lit-deep: #4b2a8f;
+    --lit-heading: #ff6f5e; --lit-accent: #ff5c4d;
+  }
+}
+
 .viewer::before, .stage::before {
   content: "";
   position: absolute;
@@ -31,7 +56,7 @@
   z-index: -1;
   pointer-events: none;
   background: url("data:image/svg+xml,<svg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 400 400'><g transform='translate%2830 60%29 scale%281.6500000000000001%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%23a056ff' fill-opacity='0.45'/></g><g transform='translate%28250 118%29 scale%281.1550000000000002%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%2356ffb0' fill-opacity='0.3'/></g><g transform='translate%28152 300%29 scale%281.9800000000000002%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%23a056ff' fill-opacity='0.45'/></g><g transform='translate%28332 332%29 scale%280.9900000000000001%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%2356ffb0' fill-opacity='0.3'/></g><g transform='translate%28110 182%29 scale%281.32%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%23a056ff' fill-opacity='0.45'/></g><g transform='translate%28300 242%29 scale%280.8800000000000001%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%2356ffb0' fill-opacity='0.3'/></g><g transform='translate%2858 350%29 scale%280.77%29'><path d='M6 3 14 11 22 3l3 3-8 8 8 8-3 3-8-8-8 8-3-3 8-8-8-8z' fill='%23a056ff' fill-opacity='0.45'/></g><g transform='translate%28205 42%29 scale%281.1%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%2892 140%29 scale%280.75%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28352 92%29 scale%280.95%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%2820 242%29 scale%280.7%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28248 382%29 scale%280.85%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28172 224%29 scale%280.6%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28378 198%29 scale%280.55%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g><g transform='translate%28128 44%29 scale%280.5%29'><path d='M12 0c.9 6.4 4.7 10.2 11.1 11.1C16.7 12 12.9 15.8 12 22.2 11.1 15.8 7.3 12 .9 11.1 7.3 10.2 11.1 6.4 12 0z' fill='%2356ffb0' fill-opacity='0.35'/></g></svg>") 0 0 / 46vmin 46vmin repeat;
-  animation: palmcast-townsville-mojo-drift 34s linear infinite;
+  animation: palmcast-townsville-mojo-drift var(--knob-drift) linear infinite;
 }
 
 .viewer::after, .stage::after {
@@ -58,12 +83,12 @@
   paint-order: stroke fill;
 }
 .viewer .slide h1, .stage .slide h1 {
-  color: #56ffb0;
+  color: var(--lit-heading, #56ffb0);
   text-shadow: 0 .06em 0 #08031a, 0 0 .75em rgb(86 255 176 / .55);
 }
 .viewer .slide h2, .stage .slide h2 { color: #c39cff; }
 .viewer .slide h3, .stage .slide h3 { color: #eee6ff; }
-.viewer .slide strong, .stage .slide strong { color: #56ffb0; }
+.viewer .slide strong, .stage .slide strong { color: var(--lit-heading, #56ffb0); }
 .viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
 .viewer .slide blockquote, .stage .slide blockquote { border-left: .18em solid var(--accent); color: #c9bce8; }
 .viewer .slide :is(pre, code), .stage .slide :is(pre, code) {

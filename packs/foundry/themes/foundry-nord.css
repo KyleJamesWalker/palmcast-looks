@@ -1,0 +1,72 @@
+/* The Nord palette: polar night under the aurora. The coolest ground in the
+   pack, with the brights held back to the four aurora hues. */
+
+.viewer, .stage {
+  --ground: #2e3440;
+  --raised: #3b4252;
+  --edge: #4c566a;
+  --ink: #eceff4;
+  --ink-dim: #bcc5d4;
+  --accent: var(--knob-accent);
+  --accent-ink: #2e3440;
+
+  --knob-accent: #88c0d0;
+  --knob-accent-options: frost #88c0d0, green #a3be8c, purple #b48ead, orange #d08770;
+
+  --code-keyword: #81a1c1;
+  --code-string: #a3be8c;
+  --code-comment: #8b97ab;
+  --code-number: #b894b1;
+  --code-function: #88c0d0;
+  --code-type: #8fbcbb;
+  --code-variable: #e5e9f0;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background:
+    radial-gradient(70% 46% at 50% -6%,
+      color-mix(in srgb, var(--knob-accent) 16%, transparent) 0%, transparent 72%),
+    radial-gradient(50% 38% at 6% 98%, rgb(163 190 140 / .1) 0%, transparent 70%),
+    linear-gradient(180deg, #3b4252 0%, rgb(0 0 0 / 0) 44%),
+    var(--ground);
+}
+
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-sans-serif, Inter, "Helvetica Neue", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -.008em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--knob-accent); }
+.viewer .slide h2, .stage .slide h2 { color: #8fbcbb; }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide strong, .stage .slide strong { color: #ebcb8b; }
+.viewer .slide em, .stage .slide em { color: #a3be8c; font-style: italic; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .2em solid var(--accent);
+  color: #d1d8e3;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: rgb(46 52 64 / .92);
+  border-color: #4c566a;
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .12em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8fbcbb, #88c0d0, #81a1c1, #5e81ac);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 8px;
+  border: 1px solid #4c566a;
+  box-shadow: 0 10px 30px rgb(0 0 0 / .4);
+}
+.viewer .slide table, .stage .slide table { background: rgb(59 66 82 / .7); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: #4c566a; }

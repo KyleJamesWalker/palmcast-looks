@@ -1,0 +1,18 @@
+/* The sheet lifts at the corner and goes over. What was underneath it has been
+   there the whole time. */
+@keyframes palmcast-out-drafting-pageturn {
+  0% { transform: none; box-shadow: none; }
+  100% {
+    transform: perspective(1600px) rotateY(-46deg) translateX(-52%) scale(.94);
+    opacity: .05;
+  }
+}
+
+html[data-transition="drafting-pageturn"] {
+  --transition-out: palmcast-out-drafting-pageturn;
+  --transition-in: palmcast-hold;
+  --transition-ease: cubic-bezier(.4, .02, .3, 1);
+  --transition-duration: .66s;
+  --transition-lift: 1;
+  --transition-drop: 0;
+}

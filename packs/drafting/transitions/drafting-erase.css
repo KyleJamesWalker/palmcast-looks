@@ -1,0 +1,27 @@
+/* Rubbed out from the left, and the next is under it. The edge is soft, the
+   way a rubber leaves one. */
+@property --palmcast-drafting-erase {
+  syntax: "<percentage>";
+  initial-value: 0%;
+  inherits: false;
+}
+
+@keyframes palmcast-out-drafting-erase {
+  from { --palmcast-drafting-erase: 0%; }
+  to { --palmcast-drafting-erase: 130%; }
+}
+
+html[data-transition="drafting-erase"] {
+  --transition-out: palmcast-out-drafting-erase;
+  --transition-in: palmcast-hold;
+  --transition-ease: cubic-bezier(.5, .05, .4, 1);
+  --transition-duration: .7s;
+  --transition-lift: 1;
+  --transition-drop: 0;
+}
+
+html[data-transition="drafting-erase"]::view-transition-old(palmcast-surface) {
+  mask-image: linear-gradient(90deg,
+    #0000 0 var(--palmcast-drafting-erase),
+    #000 calc(var(--palmcast-drafting-erase) + 12%) 100%);
+}

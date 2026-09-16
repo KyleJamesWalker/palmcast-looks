@@ -1,0 +1,25 @@
+/* A bright line runs down and leaves the next slide. It crosses top to bottom
+   and the new frame is drawn in behind it. */
+@property --palmcast-phosphor-scanline {
+  syntax: "<percentage>";
+  initial-value: 0%;
+  inherits: false;
+}
+
+@keyframes palmcast-in-phosphor-scanline {
+  from { --palmcast-phosphor-scanline: 0%; }
+  to { --palmcast-phosphor-scanline: 128%; }
+}
+
+html[data-transition="phosphor-scanline"] {
+  --transition-out: palmcast-hold;
+  --transition-in: palmcast-in-phosphor-scanline;
+  --transition-ease: linear;
+  --transition-duration: .66s;
+}
+
+html[data-transition="phosphor-scanline"]::view-transition-new(palmcast-surface) {
+  mask-image: linear-gradient(180deg,
+    #000 0 calc(var(--palmcast-phosphor-scanline) - 6%),
+    #0000 var(--palmcast-phosphor-scanline) 100%);
+}

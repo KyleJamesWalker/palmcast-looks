@@ -1,0 +1,105 @@
+/* Sixteen colours and a box drawn round the screen. The editor everyone had,
+   with a double rule at the edge and one bright key colour. */
+
+.viewer, .stage {
+  --ground: var(--lit-bg, #0000aa);
+  --raised: var(--lit-panel, #1616bb);
+  --edge: var(--lit-frame, #8a8ae0);
+  --ink: var(--lit-fg, #d6d6ff);
+  --ink-dim: var(--lit-dim, #a0a0d8);
+  --accent: var(--lit-key, #ffff55);
+  --accent-ink: #000000;
+
+  --knob-scheme: edit;
+  --knob-scheme-options: edit, vga, turbo;
+
+  --code-keyword: var(--lit-key, #ffff55);
+  --code-string: #77ff77;
+  --code-comment: var(--lit-dim, #a0a0d8);
+  --code-number: #ff9ce0;
+  --code-function: #7ce8ff;
+  --code-type: #ffd08a;
+  --code-variable: var(--lit-fg, #d6d6ff);
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background: var(--ground);
+}
+
+/* Edit is what the file ships and has no block of its own. */
+@container style(--knob-scheme: vga) {
+  .viewer, .stage {
+    --lit-bg: #000000; --lit-panel: #141414; --lit-frame: #9a9a9a;
+    --lit-fg: #d2d2d2; --lit-dim: #949494; --lit-key: #ffffff;
+  }
+}
+@container style(--knob-scheme: turbo) {
+  .viewer, .stage {
+    --lit-bg: #101055; --lit-panel: #1b1b72; --lit-frame: #7b7bd2;
+    --lit-fg: #e4e4a8; --lit-dim: #b0b08a; --lit-key: #ffffff;
+  }
+}
+
+/* The double rule, the way the box drawing characters used to make it. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: 1.6vmin;
+  z-index: -1;
+  pointer-events: none;
+  border: 2px solid var(--edge);
+  box-shadow: inset 0 0 0 2px var(--ground), inset 0 0 0 4px var(--edge);
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg,
+    rgb(0 0 0 / .09) 0 1px, transparent 1px 3px);
+}
+
+.viewer .slide, .stage .slide {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+}
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.viewer .slide h1, .stage .slide h1 { color: var(--lit-key, #ffff55); }
+.viewer .slide h2, .stage .slide h2 { color: #ffffff; }
+.viewer .slide h3, .stage .slide h3 { color: var(--ink); }
+
+.viewer .slide strong, .stage .slide strong { color: var(--lit-key, #ffff55); }
+.viewer .slide em, .stage .slide em { font-style: normal; text-decoration: underline; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .3em solid var(--accent);
+  color: var(--ink);
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: color-mix(in srgb, #000000 44%, var(--ground));
+  border-color: var(--edge);
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .2em;
+  background: linear-gradient(180deg, var(--edge) 0 40%, transparent 40% 60%, var(--edge) 60%);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 0;
+  border: .12em solid var(--edge);
+  box-shadow: none;
+}
+.viewer .slide table, .stage .slide table { background: color-mix(in srgb, #000000 30%, var(--ground)); }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: var(--edge); }

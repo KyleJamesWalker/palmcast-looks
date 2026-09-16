@@ -1,0 +1,87 @@
+/* Blue on blue, with the lighter border round it. Everything is monospace and
+   nothing is anti-aliased any more than it has to be. */
+
+.viewer, .stage {
+  --ground: #2f2470;
+  --raised: #3b2f86;
+  --edge: #6a5bc4;
+  --ink: #b9b0ff;
+  --ink-dim: #9187e0;
+  --accent: #b9b0ff;
+  --accent-ink: #2f2470;
+
+  --code-keyword: #d8b0ff;
+  --code-string: #a8e6b0;
+  --code-comment: #9187e0;
+  --code-number: #ffd98a;
+  --code-function: #a9d6ff;
+  --code-type: #ffc4e8;
+  --code-variable: #cfc8ff;
+
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+
+  background: var(--ground);
+}
+
+/* The border, which on this machine is a different colour from the screen. */
+.viewer::before, .stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border: 3.4vmin solid #6a5bc4;
+}
+
+.viewer::after, .stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg,
+    rgb(0 0 0 / .1) 0 1px, transparent 1px 3px);
+}
+
+.viewer .slide, .stage .slide {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+}
+.viewer .slide :is(h1, h2, h3),
+.stage .slide :is(h1, h2, h3) {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #e4e0ff;
+}
+.viewer .slide h2, .stage .slide h2 { color: #b9b0ff; }
+.viewer .slide h3, .stage .slide h3 { color: #9187e0; }
+
+.viewer .slide strong, .stage .slide strong { color: #e4e0ff; }
+.viewer .slide em, .stage .slide em { font-style: normal; text-decoration: underline; }
+.viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
+
+.viewer .slide blockquote, .stage .slide blockquote {
+  border-left: .3em solid var(--accent);
+  color: #cfc8ff;
+}
+.viewer .slide :is(pre, code), .stage .slide :is(pre, code) {
+  background: #241a5c;
+  border-color: #6a5bc4;
+}
+.viewer .slide hr, .stage .slide hr {
+  border-top: 0;
+  height: .24em;
+  background: repeating-linear-gradient(90deg, #b9b0ff 0 10px, #2f2470 10px 20px);
+}
+.viewer .slide img, .stage .slide img {
+  border-radius: 0;
+  border: .14em solid #6a5bc4;
+  box-shadow: none;
+}
+.viewer .slide table, .stage .slide table { background: #241a5c; }
+.viewer .slide :is(th, td), .stage .slide :is(th, td) { border-color: #6a5bc4; }

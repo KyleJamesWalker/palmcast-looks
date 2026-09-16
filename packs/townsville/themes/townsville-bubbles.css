@@ -10,6 +10,16 @@
   --accent: #0e8fd0;
   --accent-ink: #f2fbff;
 
+ /* base.css writes its defaults for a dark ground, and this is the one theme
+ here for a lit room. */
+ --code-keyword: #8a2fc4;
+ --code-string: #0f6b45;
+ --code-comment: #5c6a72;
+ --code-number: #9a5600;
+ --code-function: #0b62a6;
+ --code-type: #7d5200;
+ --code-variable: #14344a;
+
   color-scheme: light;
   color: var(--ink);
   position: relative;
@@ -66,7 +76,7 @@
   text-shadow: 0 .06em 0 rgb(255 255 255 / .95), 0 .1em .3em rgb(14 143 208 / .3);
 }
 .viewer .slide h2, .stage .slide h2 { color: #1f6fa0; }
-.viewer .slide h3, .stage .slide h3 { color: #d98a2b; }
+.viewer .slide h3, .stage .slide h3 { color: #94550d; }
 .viewer .slide strong, .stage .slide strong { color: #0e8fd0; }
 .viewer .slide li::marker, .stage .slide li::marker { color: var(--accent); }
 .viewer .slide blockquote, .stage .slide blockquote { border-left: .18em solid var(--accent); color: #3d6f8c; }
